@@ -31,12 +31,14 @@ public class InputListener : MonoBehaviour
 
     private void OnMoveInput(InputAction.CallbackContext context)
     {
-        
+        Vector2 movementInput = context.ReadValue<Vector2>();
+        inputManager.InvokeMovement(movementInput);
     }
 
     private void OnSprintInput(InputAction.CallbackContext context)
     {
-
+        bool shouldSprint = context.ReadValueAsButton();
+        inputManager.ToggleSprint(shouldSprint);
     }
 
     private void OnDirectInput(InputAction.CallbackContext context)
