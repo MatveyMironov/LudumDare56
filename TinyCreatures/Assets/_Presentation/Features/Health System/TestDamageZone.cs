@@ -25,7 +25,6 @@ public class TestDamageZone : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("1");
         if (other.transform.TryGetComponent(out HealthController healthController))
         {
             _healthController = healthController;
