@@ -43,7 +43,8 @@ public class InputListener : MonoBehaviour
 
     private void OnDirectInput(InputAction.CallbackContext context)
     {
-
+        Vector2 mousePosition = context.ReadValue<Vector2>();
+        inputManager.InvokeLook(mousePosition);
     }
 
     private void OnAimInput(InputAction.CallbackContext context)
