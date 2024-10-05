@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class HealthController : MonoBehaviour
 {
+    [ContextMenuItem("Reset Health", "ResetHealth")]
     [SerializeField] private int defaultHealth;
 
     public int MaxHealth { get; private set; }
@@ -43,7 +44,7 @@ public class HealthController : MonoBehaviour
         OnHealthChanged?.Invoke();
     }
 
-    public void ResetHealth()
+    private void ResetHealth()
     {
         MaxHealth = defaultHealth;
         CurrentHealth = defaultHealth;
