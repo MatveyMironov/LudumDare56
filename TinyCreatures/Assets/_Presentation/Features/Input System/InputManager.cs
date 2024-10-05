@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using static UnityEditor.Timeline.TimelinePlaybackControls;
 
@@ -7,6 +8,7 @@ public class InputManager : MonoBehaviour
     [Space]
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private PlayerAim playerLook;
+    [SerializeField] private PlayerWeaponHandler playerWeaponHandler;
 
     public void InvokeMovement(Vector2 movementInput)
     {
@@ -22,5 +24,22 @@ public class InputManager : MonoBehaviour
     {
         Vector2 mouseWorldPosition = mainCamera.ScreenToWorldPoint(mousePosition);
         playerLook.SetAim(mouseWorldPosition);
+    }
+
+    public void HandleShooting(bool isTriggerPulled)
+    {
+        if (isTriggerPulled)
+        {
+            playerWeaponHandler.PullTheTrigger();
+        }
+        else
+        {
+            playerWeaponHandler.ReleaseTheTrigger();
+        }
+    }
+
+    internal void InvokeReload()
+    {
+        playerWeaponHandler.Reload();
     }
 }

@@ -10,6 +10,11 @@ public class HealthController : MonoBehaviour
 
     public event Action OnHealthChanged;
 
+    private void Awake()
+    {
+        ResetHealth();
+    }
+
     public void AddHealth(int health)
     {
         if (CurrentHealth + health >= MaxHealth)

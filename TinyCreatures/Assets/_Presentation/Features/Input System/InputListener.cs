@@ -26,6 +26,8 @@ public class InputListener : MonoBehaviour
         _playerControls.MainActionMap.Shoot.started += OnShootInput;
         _playerControls.MainActionMap.Shoot.canceled += OnShootInput;
 
+        _playerControls.MainActionMap.Reload.performed += OnReloadInput;
+
         _playerControls.MainActionMap.Interact.performed += OnInteractInput;
     }
 
@@ -54,7 +56,13 @@ public class InputListener : MonoBehaviour
 
     private void OnShootInput(InputAction.CallbackContext context)
     {
+        bool isTriggerPulled = context.ReadValueAsButton();
+        inputManager.HandleShooting(isTriggerPulled);
+    }
 
+    private void OnReloadInput(InputAction.CallbackContext context)
+    {
+        inputManager.InvokeReload();
     }
 
     private void OnInteractInput(InputAction.CallbackContext context)
