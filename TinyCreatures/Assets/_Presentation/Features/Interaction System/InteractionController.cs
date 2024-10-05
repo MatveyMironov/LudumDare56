@@ -4,6 +4,7 @@ using UnityEngine;
 public class InteractionController : MonoBehaviour
 {
     [field: SerializeField] public Inventory Inventory { get;private set; }
+    [field: SerializeField] public HealthController HealthController { get;private set; }
     [Space]
     [SerializeField] private float interactionRadius;
     [SerializeField] private LayerMask interactableLayers;
