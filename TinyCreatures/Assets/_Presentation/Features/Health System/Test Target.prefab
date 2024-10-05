@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2088292491601660693}
   - component: {fileID: 8235906563166084279}
   - component: {fileID: 7546361047236325762}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Health Bar Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 4442585441878253337}
   - component: {fileID: 3642445864412359874}
   - component: {fileID: 1233904894154994075}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -188,7 +188,7 @@ GameObject:
   - component: {fileID: 7198309148936954990}
   - component: {fileID: 41310198634704737}
   - component: {fileID: 7841478088698357926}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Health Bar Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -263,7 +263,7 @@ GameObject:
   m_Component:
   - component: {fileID: 341084789055638123}
   - component: {fileID: 5472224139399186293}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Health Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -314,7 +314,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9212821053121736125}
   - component: {fileID: 5430381206967967740}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -378,7 +378,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7924528, g: 0.09946858, b: 0.078497685, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -400,7 +400,7 @@ GameObject:
   - component: {fileID: 5588942163096603119}
   - component: {fileID: 2586693921044750600}
   - component: {fileID: 6698841866740350640}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Test Target
   m_TagString: Untagged
   m_Icon: {fileID: 0}
