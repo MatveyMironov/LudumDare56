@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public abstract class Weapon : MonoBehaviour
@@ -5,6 +6,8 @@ public abstract class Weapon : MonoBehaviour
     [field: SerializeField] public int magazineCapacity { get; private set; }
     public int LoadedAmmo { get; protected set; }
     public bool IsReadyToFire { get; protected set; }
+
+    public event Action OnAmmoAmountChanged;
 
     protected abstract void Update();
 
@@ -22,5 +25,12 @@ public abstract class Weapon : MonoBehaviour
         {
             LoadedAmmo += ammo;
         }
+
+        RaiseAmmoAmountEvent();
+    }
+
+    protected void RaiseAmmoAmountEvent()
+    {
+        OnAmmoAmountChanged?.Invoke();
     }
 }

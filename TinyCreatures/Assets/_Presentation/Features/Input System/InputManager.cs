@@ -30,16 +30,16 @@ public class InputManager : MonoBehaviour
     {
         if (isTriggerPulled)
         {
-            playerWeaponHandler.PullTheTrigger();
+            playerWeaponHandler.PullWeaponTrigger();
         }
         else
         {
-            playerWeaponHandler.ReleaseTheTrigger();
+            playerWeaponHandler.ReleaseWeaponTrigger();
         }
     }
 
     internal void InvokeReload()
     {
-        playerWeaponHandler.Reload();
+        playerWeaponHandler.ReloadWeapon();
     }
 }

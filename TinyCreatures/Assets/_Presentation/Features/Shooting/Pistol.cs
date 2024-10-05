@@ -30,6 +30,7 @@ public class Pistol : Weapon
         Projectile bullet = Instantiate(bulletPrefab, muzzle.position, muzzle.rotation);
         bullet.Setup(bulletParameters);
         LoadedAmmo -= 1;
+        RaiseAmmoAmountEvent();
     }
 
     public override void ReleaseTheTrigger()

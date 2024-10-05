@@ -1,37 +1,45 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class PlayerWeaponHandler : MonoBehaviour
 {
-    [SerializeField] private Weapon weapon;
-    [SerializeField] private int availableAmmo;
+    [field: SerializeField] public Weapon Weapon { get; private set; }
+    [field: SerializeField] public int AvailableAmmo { get; private set; }
 
-    public void PullTheTrigger()
+    public event Action OnAvailableAmmoAmountChanged;
+
+    private void Start()
     {
-        weapon.PullTheTrigger();
+        ReloadWeapon();
     }
 
-    public void ReleaseTheTrigger()
+    public void PullWeaponTrigger()
     {
-        weapon.ReleaseTheTrigger();
+        Weapon.PullTheTrigger();
     }
 
-    public void Reload()
+    public void ReleaseWeaponTrigger()
     {
-        int requiredAmmo = weapon.magazineCapacity - weapon.LoadedAmmo;
+        Weapon.ReleaseTheTrigger();
+    }
+
+    public void ReloadWeapon()
+    {
+        int requiredAmmo = Weapon.magazineCapacity - Weapon.LoadedAmmo;
         if (requiredAmmo <= 0)
         { return; }
 
-        if (requiredAmmo <= availableAmmo)
+        if (requiredAmmo <= AvailableAmmo)
         {
-            weapon.Reload(requiredAmmo);
-            availableAmmo -= requiredAmmo;
+            Weapon.Reload(requiredAmmo);
+            AvailableAmmo -= requiredAmmo;
         }
         else
         {
-            weapon.Reload(availableAmmo);
-            availableAmmo = 0;
+            Weapon.Reload(AvailableAmmo);
+            AvailableAmmo = 0;
         }
+
+        OnAvailableAmmoAmountChanged?.Invoke();
     }
 }
