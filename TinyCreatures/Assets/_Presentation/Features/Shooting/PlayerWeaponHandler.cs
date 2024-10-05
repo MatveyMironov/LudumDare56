@@ -4,9 +4,7 @@ using UnityEngine;
 public class PlayerWeaponHandler : MonoBehaviour
 {
     [field: SerializeField] public Weapon Weapon { get; private set; }
-    [field: SerializeField] public int AvailableAmmo { get; private set; }
-
-    public event Action OnAvailableAmmoAmountChanged;
+    [field: SerializeField] public Inventory Inventory { get; private set; }
 
     private void Start()
     {
@@ -29,17 +27,15 @@ public class PlayerWeaponHandler : MonoBehaviour
         if (requiredAmmo <= 0)
         { return; }
 
-        if (requiredAmmo <= AvailableAmmo)
+        if (requiredAmmo <= Inventory.CurrentPistolCartridges)
         {
             Weapon.Reload(requiredAmmo);
-            AvailableAmmo -= requiredAmmo;
+            Inventory.RemovePistolCartridges(requiredAmmo);
         }
         else
         {
-            Weapon.Reload(AvailableAmmo);
-            AvailableAmmo = 0;
+            Weapon.Reload(Inventory.CurrentPistolCartridges);
+            Inventory.RemovePistolCartridges(Inventory.CurrentPistolCartridges);
         }
-
-        OnAvailableAmmoAmountChanged?.Invoke();
     }
 }

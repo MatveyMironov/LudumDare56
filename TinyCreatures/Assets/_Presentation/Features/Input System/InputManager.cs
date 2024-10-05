@@ -9,6 +9,7 @@ public class InputManager : MonoBehaviour
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private PlayerAim playerLook;
     [SerializeField] private PlayerWeaponHandler playerWeaponHandler;
+    [SerializeField] private InteractionController interactionController;
 
     public void InvokeMovement(Vector2 movementInput)
     {
@@ -41,5 +42,10 @@ public class InputManager : MonoBehaviour
     internal void InvokeReload()
     {
         playerWeaponHandler.ReloadWeapon();
+    }
+
+    public void InvokeInteraction()
+    {
+        interactionController.Interact();
     }
 }

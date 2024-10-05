@@ -67,7 +67,7 @@ public class InputListener : MonoBehaviour
 
     private void OnInteractInput(InputAction.CallbackContext context)
     {
-        
+        inputManager.InvokeInteraction();
     }
 
     private void OnEnable()
