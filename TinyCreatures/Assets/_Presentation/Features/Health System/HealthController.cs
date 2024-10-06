@@ -42,6 +42,11 @@ public class HealthController : MonoBehaviour
         }
 
         OnHealthChanged?.Invoke();
+
+        if (CurrentHealth <= 0)
+        {
+            Death();
+        }
     }
 
     private void ResetHealth()
@@ -49,5 +54,10 @@ public class HealthController : MonoBehaviour
         MaxHealth = defaultHealth;
         CurrentHealth = defaultHealth;
         OnHealthChanged?.Invoke();
+    }
+
+    private void Death()
+    {
+        Destroy(gameObject);
     }
 }
