@@ -24,9 +24,6 @@ namespace Pause
         private void Awake()
         {
             resumeButton.onClick.AddListener(pauseManager.ResumeGame);
-            resumeButton.onClick.AddListener(audioSettingsMenu.CloseMenu);
-
-            settingsButton.onClick.AddListener(audioSettingsMenu.OpenMenu);
             settingsButton.onClick.AddListener(CloseMenu);
         }
 
