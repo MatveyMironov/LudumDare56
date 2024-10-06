@@ -272,8 +272,8 @@ MonoBehaviour:
     <AttackDistance>k__BackingField: 1
     <AttackCooldown>k__BackingField: 1
     <AttackDamage>k__BackingField: 10
-  IsActive: 0
-  IsPatroling: 0
+  IsActive: 1
+  IsPatroling: 1
 --- !u!114 &1131193218953240686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -382,6 +382,10 @@ PrefabInstance:
     - target: {fileID: 5015945229800130940, guid: fa7637a72765aff49b95c3f877ea2ddc, type: 3}
       propertyPath: m_Name
       value: Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 7430230295731176728, guid: fa7637a72765aff49b95c3f877ea2ddc, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -178230481
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
