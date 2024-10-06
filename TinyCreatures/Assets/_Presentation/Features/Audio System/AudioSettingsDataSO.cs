@@ -6,7 +6,8 @@ namespace AudioSystem
     public class AudioSettingsDataSO : ScriptableObject
     {
         public float masterVolume;
-        public float musicVolume;
         public float effectsVolume;
+        public float voiceVolume;
+        public float musicVolume;
     }
 }
