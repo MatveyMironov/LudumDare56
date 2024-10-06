@@ -29,6 +29,8 @@ public class InputListener : MonoBehaviour
         _playerControls.MainActionMap.Reload.performed += OnReloadInput;
 
         _playerControls.MainActionMap.Interact.performed += OnInteractInput;
+
+        _playerControls.MainActionMap.Pause.performed += OnPauseInput;
     }
 
     private void OnMoveInput(InputAction.CallbackContext context)
@@ -68,6 +70,11 @@ public class InputListener : MonoBehaviour
     private void OnInteractInput(InputAction.CallbackContext context)
     {
         inputManager.InvokeInteraction();
+    }
+
+    private void OnPauseInput(InputAction.CallbackContext context)
+    {
+        inputManager.TogglePause();
     }
 
     private void OnEnable()
