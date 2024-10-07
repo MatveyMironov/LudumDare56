@@ -13,7 +13,7 @@ public class InteractionIndicator : MonoBehaviour
 
     public void HideIndicator()
     {
-        indicatorObject.SetActive(false);
+        indicatorObject?.SetActive(false);
     }
 
     public void SetInteractionInformation(string information)

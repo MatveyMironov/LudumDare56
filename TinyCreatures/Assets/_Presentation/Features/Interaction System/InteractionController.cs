@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class InteractionController : MonoBehaviour
 {
-    [field: SerializeField] public Inventory Inventory { get;private set; }
-    [field: SerializeField] public HealthController HealthController { get;private set; }
+    [field: SerializeField] public Inventory Inventory { get; private set; }
+    [field: SerializeField] public HealthController HealthController { get; private set; }
     [Space]
     [SerializeField] private float interactionRadius;
     [SerializeField] private LayerMask interactableLayers;
@@ -13,8 +13,9 @@ public class InteractionController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, interactionRadius, interactableLayers);
         List<IInteractable> interactables = new();
+
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, interactionRadius, interactableLayers);
         foreach (Collider2D collider in colliders)
         {
             if (collider.TryGetComponent(out IInteractable interactable))
@@ -29,8 +30,12 @@ public class InteractionController : MonoBehaviour
         }
         else
         {
-            _currentInteractable?.HideInteraction();
-            _currentInteractable = null;
+            if (_currentInteractable != null)
+            {
+                _currentInteractable.HideInteraction();
+                _currentInteractable = null;
+            }
+
             if (interactables.Count > 0)
             {
                 _currentInteractable = interactables[0];
@@ -44,6 +49,7 @@ public class InteractionController : MonoBehaviour
         if (_currentInteractable != null)
         {
             _currentInteractable.Interact(this);
+            _currentInteractable = null;
         }
     }
 

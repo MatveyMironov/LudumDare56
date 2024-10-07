@@ -7,6 +7,8 @@ public class Inventory : MonoBehaviour
     [field: SerializeField] public int DefaultPistolCartridges { get; private set; }
     public int CurrentPistolCartridges { get; private set; }
 
+    public int CollectedSamples { get; private set; }
+
     public event Action OnPistolCartridgesAmountChanged;
 
     private void Awake()
@@ -45,5 +47,22 @@ public class Inventory : MonoBehaviour
     private void ResetCurrentPistolCartridges()
     {
         CurrentPistolCartridges = DefaultPistolCartridges;
+    }
+
+    public void AddSamples(int amount)
+    {
+        CollectedSamples += amount;
+    }
+
+    public void RemoveSamples(int amount)
+    {
+        if (CollectedSamples < amount)
+        {
+            CollectedSamples = 0;
+        }
+        else
+        {
+            CollectedSamples -= amount;
+        }
     }
 }

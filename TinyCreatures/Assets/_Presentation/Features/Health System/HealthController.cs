@@ -5,8 +5,7 @@ public class HealthController : MonoBehaviour
 {
     [ContextMenuItem("Reset Health", "ResetHealth")]
     [SerializeField] private int defaultHealth;
-
-    public int MaxHealth { get; private set; }
+    [field: SerializeField] public int MaxHealth { get; private set; }
     public int CurrentHealth { get; private set; }
 
     public event Action OnHealthChanged;
@@ -51,7 +50,6 @@ public class HealthController : MonoBehaviour
 
     private void ResetHealth()
     {
-        MaxHealth = defaultHealth;
         CurrentHealth = defaultHealth;
         OnHealthChanged?.Invoke();
     }
