@@ -1,18 +1,27 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [Header("Health")]
+    [SerializeField] private HealthController healthController;
+
+    public event Action OnPlayerDeath;
+
+    private void OnEnable()
     {
-        
+        healthController.OnHealthExpired += Death;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnDisable()
     {
-        
+        healthController.OnHealthExpired -= Death;
+    }
+
+    private void Death()
+    {
+        OnPlayerDeath?.Invoke();
     }
 }

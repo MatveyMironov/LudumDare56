@@ -51,6 +51,7 @@ namespace Enemy
                 }
 
                 _currentDestination = _objectives.Waypoins[_currentDestinationIndex];
+                _movement.RotateTo(_currentDestination.position);
                 _movement.Agent.SetDestination(_currentDestination.position);
             }
         }

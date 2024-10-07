@@ -27,5 +27,16 @@ namespace Enemy
             Agent.speed = RunningSpeed;
             Agent.angularSpeed = TurningSpeed;
         }
+
+        public void RotateTo(Vector3 position)
+        {
+            Vector3 targ;
+            targ.x = position.x - Agent.transform.position.x;
+            targ.y = position.y - Agent.transform.position.y;
+            targ.z = 0f;
+
+            float angle = Mathf.Atan2(targ.y, targ.x) * Mathf.Rad2Deg + 90.0f;
+            Agent.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+        }
     }
 }

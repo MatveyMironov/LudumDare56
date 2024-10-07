@@ -1,6 +1,4 @@
-using TMPro;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace Enemy
 {
@@ -33,6 +31,8 @@ namespace Enemy
 
         public void Tick()
         {
+            _movement.RotateTo(_perception.PercievedPlayer.transform.position);
+
             _movement.Agent.SetDestination(_perception.PercievedPlayer.transform.position);
             if (_movement.Agent.remainingDistance < 1)
             {

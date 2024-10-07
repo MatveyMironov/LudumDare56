@@ -4,21 +4,29 @@ public class Pistol : Weapon
 {
     [SerializeField] private LayerMask hitableLayers;
     [SerializeField] private int Damage;
+    [SerializeField] private float Cooldown;
     [SerializeField] private Transform muzzle;
 
     [Header("Effects")]
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip shotClip;
     [SerializeField] private TrailRenderer tracerEffect;
+    [SerializeField] private Animator animator;
+
+    private bool _isRecharging;
+    private float _rechargingTimer;
 
     protected override void Update()
     {
-        
+        if (_isRecharging)
+        {
+            Recharge();
+        }
     }
 
     public override void PullTheTrigger()
     {
-        if (!IsReadyToFire)
+        if (!IsReadyToFire || _isRecharging)
         { return; }
 
         Fire();
@@ -31,9 +39,11 @@ public class Pistol : Weapon
         { return; }
 
         audioSource.PlayOneShot(shotClip);
+        animator.SetTrigger("Shoot");
         CreateRaycast();
         
         LoadedAmmo -= 1;
+        _isRecharging = true;
         RaiseAmmoAmountEvent();
     }
 
@@ -45,9 +55,9 @@ public class Pistol : Weapon
     private void CreateRaycast()
     {
         RaycastHit2D hit = Physics2D.Raycast(muzzle.position, muzzle.up, 100, hitableLayers);
-        if (hit.collider.TryGetComponent(out HealthController health))
+        if (hit.collider.TryGetComponent(out IHitable hitable))
         {
-            health.SubtractHealth(Damage);
+            hitable.Hit(Damage, muzzle.position);
         }
         DrawTracer(hit.point);
     }
@@ -58,5 +68,15 @@ public class Pistol : Weapon
         tracer.AddPosition(muzzle.position);
 
         tracer.transform.position = impactPoint;
+    }
+
+    private void Recharge()
+    {
+        _rechargingTimer += Time.deltaTime;
+        if (_rechargingTimer >= Cooldown)
+        {
+            _isRecharging = false;
+            _rechargingTimer = 0;
+        }
     }
 }

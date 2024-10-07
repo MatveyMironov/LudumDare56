@@ -9,6 +9,7 @@ public class HealthController : MonoBehaviour
     public int CurrentHealth { get; private set; }
 
     public event Action OnHealthChanged;
+    public event Action OnHealthExpired;
 
     private void Awake()
     {
@@ -44,7 +45,7 @@ public class HealthController : MonoBehaviour
 
         if (CurrentHealth <= 0)
         {
-            Death();
+            OnHealthExpired?.Invoke();
         }
     }
 
@@ -52,10 +53,5 @@ public class HealthController : MonoBehaviour
     {
         CurrentHealth = defaultHealth;
         OnHealthChanged?.Invoke();
-    }
-
-    private void Death()
-    {
-        Destroy(gameObject);
     }
 }

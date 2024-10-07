@@ -128,8 +128,8 @@ GameObject:
   - component: {fileID: 7832469498533727864}
   - component: {fileID: 914939874862494859}
   - component: {fileID: 5019846706336476008}
-  - component: {fileID: 3932794077462597013}
   - component: {fileID: 1131193218953240686}
+  - component: {fileID: 3932794077462597013}
   m_Layer: 6
   m_Name: Enemy
   m_TagString: Untagged
@@ -238,6 +238,20 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &1131193218953240686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9050494014156499785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf24a8481740a0b42b73a385589638d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultHealth: 50
+  <MaxHealth>k__BackingField: 50
 --- !u!114 &3932794077462597013
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -250,6 +264,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d52a5c2e1c7fd57469c90aaa05122565, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthController: {fileID: 1131193218953240686}
   perceptionParameters:
     <PercievedLayers>k__BackingField:
       serializedVersion: 2
@@ -271,23 +286,9 @@ MonoBehaviour:
   weaponParameters:
     <AttackDistance>k__BackingField: 1
     <AttackCooldown>k__BackingField: 1
-    <AttackDamage>k__BackingField: 40
+    <AttackDamage>k__BackingField: 30
   IsActive: 1
   IsPatroling: 1
---- !u!114 &1131193218953240686
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9050494014156499785}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf24a8481740a0b42b73a385589638d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  defaultHealth: 50
-  <MaxHealth>k__BackingField: 50
 --- !u!1001 &5024821678505179699
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -3,8 +3,11 @@ using UnityEngine;
 
 namespace Enemy
 {
-    public class EnemyController : MonoBehaviour
+    public class EnemyController : MonoBehaviour, IHitable
     {
+        [Header("Health")]
+        [SerializeField] private HealthController healthController;
+
         [Header("Perception")]
         [SerializeField] private EnemyPerception.PerceptionParameters perceptionParameters;
 
@@ -52,6 +55,26 @@ namespace Enemy
         private void FixedUpdate()
         {
             _stateMachine.Tick();
+        }
+
+        private void OnEnable()
+        {
+            healthController.OnHealthExpired += Death;
+        }
+
+        private void OnDisable()
+        {
+            healthController.OnHealthExpired -= Death;
+        }
+
+        private void Death()
+        {
+            Destroy(gameObject);
+        }
+
+        public void Hit(int damage, Vector3 from)
+        {
+            healthController.SubtractHealth(damage);
         }
     }
 
