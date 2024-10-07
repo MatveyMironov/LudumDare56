@@ -16,19 +16,22 @@ namespace Enemy
 
             SleepingState sleeping = new();
             PatrolingState patroling = new(controller.Movement, controller.Objectives);
+            InvestigatingState investigating = new(controller.Objectives, controller.Movement);
             FightingState fighting = new(controller.Perception, controller.Movement, controller.Weapon, controller.transform);
 
             _stateMachine.AddTransition(sleeping, patroling, () => controller.IsPatroling);
-            _stateMachine.AddTransition(patroling, fighting, () => controller.Perception.PercievedPlayer != null);
+            _stateMachine.AddTransition(patroling, investigating, () => controller.Objectives.PositionOfInterest != Vector3.zero);
+            _stateMachine.AddTransition(investigating, patroling, investigating.HasReachedPosition);
             _stateMachine.AddTransition(fighting, patroling, () => controller.Perception.PercievedPlayer == null);
+
+            _stateMachine.AddAnyTransition(fighting, () => controller.Perception.PercievedPlayer != null);
 
             _stateMachine.SetState(sleeping);
         }
 
         public void OnEnter()
         {
-            Debug.Log("Active");
-            _stateMachine.EnterCurrentState();
+
         }
 
         public void OnExit()

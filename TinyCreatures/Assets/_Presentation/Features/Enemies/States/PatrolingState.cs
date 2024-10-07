@@ -18,10 +18,7 @@ namespace Enemy
 
         public void OnEnter()
         {
-            Debug.Log("Patroling");
-            _movement.Agent.speed = _movement.WalkingSpeed;
-            _movement.Agent.angularSpeed = _movement.TurningSpeed;
-            _movement.Agent.isStopped = false;
+            _movement.SetWalkingSpeed();
         }
 
         public void OnExit()
@@ -31,7 +28,7 @@ namespace Enemy
 
         public void Tick()
         {
-            if (_movement.Agent.remainingDistance <= 0)
+            if (_movement.RemainingDistance <= 0)
             {
                 MoveToNextWaypoint();
             }
@@ -51,8 +48,7 @@ namespace Enemy
                 }
 
                 _currentDestination = _objectives.Waypoins[_currentDestinationIndex];
-                _movement.RotateTo(_currentDestination.position);
-                _movement.Agent.SetDestination(_currentDestination.position);
+                _movement.MoveTo(_currentDestination.position);
             }
         }
     }

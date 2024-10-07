@@ -19,9 +19,7 @@ namespace Enemy
 
         public void OnEnter()
         {
-            Debug.Log("Fighting");
             _movement.SetRunningSpeed();
-            _movement.Agent.isStopped = false;
         }
 
         public void OnExit()
@@ -31,16 +29,15 @@ namespace Enemy
 
         public void Tick()
         {
-            _movement.RotateTo(_perception.PercievedPlayer.transform.position);
+            _movement.MoveTo(_perception.PercievedPlayer.transform.position);
 
-            _movement.Agent.SetDestination(_perception.PercievedPlayer.transform.position);
-            if (_movement.Agent.remainingDistance < 1)
+            if (_movement.RemainingDistance < 1)
             {
-                _movement.Agent.isStopped = true;
+                _movement.StopMoving();
             }
             else
             {
-                _movement.Agent.isStopped = false;
+                _movement.StartMoving();
             }
 
             _weapon.FunctioningTick();

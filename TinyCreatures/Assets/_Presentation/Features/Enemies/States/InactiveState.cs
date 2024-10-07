@@ -11,7 +11,7 @@ namespace Enemy
 
         public void OnEnter()
         {
-            Debug.Log("Inactive");
+
         }
 
         public void OnExit()

@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Enemy
 {
@@ -11,8 +12,9 @@ namespace Enemy
         [Header("Perception")]
         [SerializeField] private EnemyPerception.PerceptionParameters perceptionParameters;
 
-        [field: Header("Movement")]
-        [field: SerializeField] public EnemyMovement Movement { get; private set; }
+        [Header("Movement")]
+        [SerializeField] private NavMeshAgent agent;
+        [SerializeField] private EnemyMovement.MovementParameters movementParameters;
 
         [field: Header("Objectives")]
         [field: SerializeField] public EnemyObjectives Objectives { get; private set; }
@@ -20,6 +22,7 @@ namespace Enemy
         [Header("Combat")]
         [SerializeField] private EnemyWeapon.WeaponParameters weaponParameters;
 
+        public EnemyMovement Movement {  get; private set; }
         public EnemyWeapon Weapon { get; private set; }
         public EnemyPerception Perception { get; private set; }
 
@@ -30,6 +33,7 @@ namespace Enemy
 
         private void Awake()
         {
+            Movement = new(agent, movementParameters);
             Perception = new(perceptionParameters);
             Weapon = new(weaponParameters);
 
@@ -46,10 +50,8 @@ namespace Enemy
 
         private void Start()
         {
-            Movement.Agent.updateRotation = false;
-            Movement.Agent.updateUpAxis = false;
-
-            _stateMachine.EnterCurrentState();
+            agent.updateRotation = false;
+            agent.updateUpAxis = false;
         }
 
         private void FixedUpdate()
@@ -75,6 +77,7 @@ namespace Enemy
         public void Hit(int damage, Vector3 from)
         {
             healthController.SubtractHealth(damage);
+            Objectives.PositionOfInterest = from;
         }
     }
 
@@ -82,5 +85,6 @@ namespace Enemy
     public class EnemyObjectives
     {
         [field: SerializeField] public Transform[] Waypoins { get; private set; }
+        public Vector3 PositionOfInterest { get; set; }
     }
 }

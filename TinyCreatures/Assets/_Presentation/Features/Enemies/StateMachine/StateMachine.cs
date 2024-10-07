@@ -18,7 +18,6 @@ public class StateMachine
         {
             _currentState?.OnExit();
             SetState(transition.To);
-            EnterCurrentState();
         }
 
         _currentState?.Tick();
@@ -34,10 +33,7 @@ public class StateMachine
         _transitions.TryGetValue(_currentState.GetType(), out _currentTransitions);
         if (_currentTransitions == null)
             _currentTransitions = EmptyTransitions;
-    }
 
-    public void EnterCurrentState()
-    {
         _currentState?.OnEnter();
     }
 

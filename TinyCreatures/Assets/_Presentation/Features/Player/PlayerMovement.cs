@@ -7,8 +7,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float maxWalkingSpeed;
     [SerializeField] private float acceleration;
     [SerializeField] private float deceleration;
-    [Space]
+
+    [Header("Effects")]
     [SerializeField] private Animator animator;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip movingClip;
 
     private Vector2 _movementDirection;
     private Vector2 _movementVelocity;
@@ -22,12 +25,18 @@ public class PlayerMovement : MonoBehaviour
             _movementVelocity = Vector2.Lerp(_movementVelocity, targetVelocity, acceleration * Time.deltaTime);
             playerRigidbody.velocity = _movementVelocity;
             animator.SetBool("IsWalking", true);
+
+            if (!audioSource.isPlaying)
+            {
+                audioSource.Play();
+            }
         }
         else
         {
             _movementVelocity = Vector2.Lerp(_movementVelocity, Vector2.zero, deceleration * Time.deltaTime);
             playerRigidbody.velocity = _movementVelocity;
             animator.SetBool("IsWalking", false);
+            //audioSource.Stop();
         }
     }
 

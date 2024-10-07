@@ -7,36 +7,61 @@ namespace Enemy
     [Serializable]
     public class EnemyMovement
     {
-        [field: SerializeField] public NavMeshAgent Agent { get; private set; }
+        private NavMeshAgent _agent;
+        private MovementParameters _parameters;
 
-        [field: Space]
-        [field: SerializeField] public float WalkingSpeed { get; private set; }
-        [field: SerializeField] public float RunningSpeed { get; private set; }
-        [field: SerializeField] public float TurningSpeed { get; private set; }
+        public EnemyMovement(NavMeshAgent agent, MovementParameters parameters)
+        {
+            _agent = agent;
+            _parameters = parameters;
+        }
+
+        public float RemainingDistance { get { return _agent.remainingDistance; } }
 
         [ContextMenu("Reset Walking Speed")]
-        public void ResetWalkingSpeed()
+        public void SetWalkingSpeed()
         {
-            Agent.speed = WalkingSpeed;
-            Agent.angularSpeed = TurningSpeed;
+            _agent.speed = _parameters.WalkingSpeed;
+            _agent.angularSpeed = _parameters.TurningSpeed;
         }
 
         [ContextMenu("Reset Running Speed")]
         public void SetRunningSpeed()
         {
-            Agent.speed = RunningSpeed;
-            Agent.angularSpeed = TurningSpeed;
+            _agent.speed = _parameters.RunningSpeed;
+            _agent.angularSpeed = _parameters.TurningSpeed;
         }
 
-        public void RotateTo(Vector3 position)
+        public void MoveTo(Vector3 position)
         {
             Vector3 targ;
-            targ.x = position.x - Agent.transform.position.x;
-            targ.y = position.y - Agent.transform.position.y;
+            targ.x = position.x - _agent.transform.position.x;
+            targ.y = position.y - _agent.transform.position.y;
             targ.z = 0f;
 
             float angle = Mathf.Atan2(targ.y, targ.x) * Mathf.Rad2Deg + 90.0f;
-            Agent.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+            _agent.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+
+            _agent.SetDestination(position);
+            _agent.isStopped = false;
+        }
+
+        public void StopMoving()
+        {
+            _agent.isStopped = true;
+        }
+
+        public void StartMoving()
+        {
+            _agent.isStopped = false;
+        }
+
+        [Serializable]
+        public class MovementParameters
+        {
+            [field: SerializeField] public float WalkingSpeed { get; private set; }
+            [field: SerializeField] public float RunningSpeed { get; private set; }
+            [field: SerializeField] public float TurningSpeed { get; private set; }
         }
     }
 }
