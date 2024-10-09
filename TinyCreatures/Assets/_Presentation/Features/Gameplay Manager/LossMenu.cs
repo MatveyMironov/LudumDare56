@@ -1,34 +1,38 @@
 using Pause;
 using UnityEngine;
 using UnityEngine.UI;
+using Input;
 
-public class LossMenu : MonoBehaviour
+namespace UI
 {
-    [SerializeField] private Player player;
-
-    [SerializeField] private GamePause gamePause;
-    [SerializeField] private InputManager inputManager;
-    [SerializeField] private SceneLoader sceneLoader;
-
-    [Header("UI")]
-    [SerializeField] private GameObject lossPanel;
-    [SerializeField] private Button quitButton;
-
-    private void OnEnable()
+    public class LossMenu : MonoBehaviour
     {
-        player.OnPlayerDeath += Loss;
-    }
+        [SerializeField] private Player.Player player;
 
-    private void OnDisable()
-    {
-        player.OnPlayerDeath -= Loss;
-    }
+        [SerializeField] private GamePause gamePause;
+        [SerializeField] private InputManager inputManager;
+        [SerializeField] private SceneLoader sceneLoader;
 
-    private void Loss()
-    {
-        gamePause.Pause();
-        inputManager.InputDisabled = true;
-        lossPanel.SetActive(true);
-        quitButton.onClick.AddListener(sceneLoader.LoadScene);
+        [Header("UI")]
+        [SerializeField] private GameObject lossPanel;
+        [SerializeField] private Button quitButton;
+
+        private void OnEnable()
+        {
+            player.OnPlayerDeath += Loss;
+        }
+
+        private void OnDisable()
+        {
+            player.OnPlayerDeath -= Loss;
+        }
+
+        private void Loss()
+        {
+            gamePause.Pause();
+            inputManager.InputDisabled = true;
+            lossPanel.SetActive(true);
+            quitButton.onClick.AddListener(sceneLoader.LoadScene);
+        }
     }
 }

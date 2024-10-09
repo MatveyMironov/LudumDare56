@@ -1,27 +1,38 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+namespace Player
 {
-    [Header("Health")]
-    [SerializeField] private HealthController healthController;
-
-    public event Action OnPlayerDeath;
-
-    private void OnEnable()
+    public class Player : MonoBehaviour, IHitable
     {
-        healthController.OnHealthExpired += Death;
-    }
+        [Header("Health")]
+        [SerializeField] private HealthController healthController;
 
-    private void OnDisable()
-    {
-        healthController.OnHealthExpired -= Death;
-    }
+        [Header("Hit Effects")]
+        [SerializeField] private AudioSource gettingHitSource;
 
-    private void Death()
-    {
-        OnPlayerDeath?.Invoke();
+        public event Action OnPlayerDeath;
+
+        private void OnEnable()
+        {
+            healthController.OnHealthExpired += Death;
+        }
+
+        private void OnDisable()
+        {
+            healthController.OnHealthExpired -= Death;
+        }
+
+        public void Hit(int damage, Vector3 from)
+        {
+            gettingHitSource.Play();
+            healthController.SubtractHealth(damage);
+        }
+
+        private void Death()
+        {
+            OnPlayerDeath?.Invoke();
+        }
+
     }
 }

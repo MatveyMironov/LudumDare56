@@ -2,64 +2,43 @@ using Pause;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class WinMenu : MonoBehaviour
+namespace UI
 {
-    [SerializeField] private SamplesCollector sampleCollector;
-
-    [SerializeField] private GamePause gamePause;
-    [SerializeField] private InputManager inputManager;
-    [SerializeField] private SceneLoader sceneLoader;
-
-    [Header("UI")]
-    [SerializeField] private GameObject winPanel;
-    [SerializeField] private GameObject[] narrativeWindows;
-    [SerializeField] private Button nextButton;
-    [SerializeField] private Button previousButton;
-
-    private int _currentPanelIndex = 0;
-
-    private void Win()
+    public class WinMenu : MonoBehaviour
     {
-        gamePause.Pause();
-        inputManager.InputDisabled = true;
-        winPanel.SetActive(true);
-        narrativeWindows[_currentPanelIndex].SetActive(true);
+        [SerializeField] private SamplesCollector sampleCollector;
 
-        nextButton.onClick.AddListener(ShowNext);
-        previousButton.onClick.AddListener(ShowPrevious);
-    }
+        [SerializeField] private GamePause gamePause;
+        [SerializeField] private Input.InputManager inputManager;
+        [SerializeField] private SceneLoader sceneLoader;
 
-    private void ShowNext()
-    {
-        if (_currentPanelIndex + 1 < narrativeWindows.Length)
+        [Header("UI")]
+        [SerializeField] private GameObject winPanel;
+        [SerializeField] private Button quitButton;
+
+        private int _currentPanelIndex = 0;
+
+        private void Win()
         {
-            narrativeWindows[_currentPanelIndex].SetActive(false);
-            _currentPanelIndex++;
-            narrativeWindows[_currentPanelIndex].SetActive(true);
+            gamePause.Pause();
+            inputManager.InputDisabled = true;
+            winPanel.SetActive(true);
+            quitButton.onClick.AddListener(Quit);
         }
-        else
+
+        private void Quit()
         {
             sceneLoader.LoadScene();
         }
-    }
 
-    private void ShowPrevious()
-    {
-        if (_currentPanelIndex - 1 >= 0)
+        private void OnEnable()
         {
-            narrativeWindows[_currentPanelIndex].SetActive(false);
-            _currentPanelIndex--;
-            narrativeWindows[_currentPanelIndex].SetActive(true);
+            sampleCollector.OnAllSamplesCollected += Win;
         }
-    }
 
-    private void OnEnable()
-    {
-        sampleCollector.OnAllSamplesCollected += Win;
-    }
-
-    private void OnDisable()
-    {
-        sampleCollector.OnAllSamplesCollected -= Win;
+        private void OnDisable()
+        {
+            sampleCollector.OnAllSamplesCollected -= Win;
+        }
     }
 }

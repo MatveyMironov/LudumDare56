@@ -1,12 +1,15 @@
 using UnityEngine;
 
-public class CameraFollowPlayer : MonoBehaviour
+namespace Player
 {
-    [SerializeField] private Transform player;
-
-    private void Update()
+    public class CameraFollowPlayer : MonoBehaviour
     {
-        Vector3 targetPosition = new Vector3(player.position.x, player.position.y, transform.position.z);
-        transform.position = targetPosition;
+        [SerializeField] private Transform player;
+
+        private void Update()
+        {
+            Vector3 targetPosition = new Vector3(player.position.x, player.position.y, transform.position.z);
+            transform.position = targetPosition;
+        }
     }
 }

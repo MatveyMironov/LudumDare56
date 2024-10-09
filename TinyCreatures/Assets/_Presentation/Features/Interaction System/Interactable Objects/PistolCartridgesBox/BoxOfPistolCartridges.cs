@@ -8,6 +8,9 @@ public class BoxOfPistolCartridges : MonoBehaviour, IInteractable
     [SerializeField] private int initialStoredItems;
     public int CurrentStoredItems { get; private set; }
 
+    [Header("Interaction Effects")]
+    [SerializeField] private AudioClip interactionClip;
+
     private void Start()
     {
         ResetStoredItems();
@@ -32,20 +35,22 @@ public class BoxOfPistolCartridges : MonoBehaviour, IInteractable
         if (availableSpace >= CurrentStoredItems)
         {
             inventory.AddPistolCartridges(CurrentStoredItems);
+            interactionController.PlayInteractionEffect(interactionClip);
             CurrentStoredItems = 0;
+            Destroy(gameObject);
         }
         else
         {
             inventory.AddPistolCartridges(availableSpace);
+            interactionController.PlayInteractionEffect(interactionClip);
             CurrentStoredItems -= availableSpace;
+            indicator.SetInteractionInformation($"{CurrentStoredItems}");
         }
-
-        indicator.SetInteractionInformation($"{CurrentStoredItems} Pistol Cartridges");
     }
 
     private void ResetStoredItems()
     {
         CurrentStoredItems = initialStoredItems;
-        indicator.SetInteractionInformation($"{CurrentStoredItems} Pistol Cartridges");
+        indicator.SetInteractionInformation($"{CurrentStoredItems}");
     }
 }

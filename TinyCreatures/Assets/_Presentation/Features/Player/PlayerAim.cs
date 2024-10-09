@@ -1,32 +1,35 @@
 using UnityEngine;
 
-public class PlayerAim : MonoBehaviour
+namespace Player
 {
-    [SerializeField] private Rigidbody2D playerRigidbody;
-    [Space]
-    [SerializeField] private float turningSpeed;
-    [SerializeField] private bool turnsInstantly;
-
-    private float aimAngle;
-
-    private void FixedUpdate()
+    public class PlayerAim : MonoBehaviour
     {
-        if (playerRigidbody.rotation != aimAngle)
+        [SerializeField] private Rigidbody2D playerRigidbody;
+        [Space]
+        [SerializeField] private float turningSpeed;
+        [SerializeField] private bool turnsInstantly;
+
+        private float aimAngle;
+
+        private void FixedUpdate()
         {
-            if (turnsInstantly)
+            if (playerRigidbody.rotation != aimAngle)
             {
-                playerRigidbody.rotation = aimAngle;
-            }
-            else
-            {
-                playerRigidbody.rotation = Mathf.MoveTowardsAngle(playerRigidbody.rotation, aimAngle, turningSpeed * Time.fixedDeltaTime);
+                if (turnsInstantly)
+                {
+                    playerRigidbody.rotation = aimAngle;
+                }
+                else
+                {
+                    playerRigidbody.rotation = Mathf.MoveTowardsAngle(playerRigidbody.rotation, aimAngle, turningSpeed * Time.fixedDeltaTime);
+                }
             }
         }
-    }
 
-    public void SetAim(Vector2 aimPosition)
-    {
-        Vector2 aimDirection = aimPosition - playerRigidbody.position;
-        aimAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg - 90.0f;
+        public void SetAim(Vector2 aimPosition)
+        {
+            Vector2 aimDirection = aimPosition - playerRigidbody.position;
+            aimAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg - 90.0f;
+        }
     }
 }

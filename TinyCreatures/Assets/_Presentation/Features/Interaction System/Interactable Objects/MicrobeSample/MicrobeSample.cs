@@ -4,6 +4,9 @@ public class MicrobeSample : MonoBehaviour, IInteractable
 {
     [SerializeField] private InteractionIndicator indicator;
 
+    [Header("Interaction Effects")]
+    [SerializeField] private AudioClip interactionClip;
+
     private void Start()
     {
         HideInteraction();
@@ -22,7 +25,7 @@ public class MicrobeSample : MonoBehaviour, IInteractable
     public void Interact(InteractionController interactionController)
     {
         interactionController.Inventory.AddSamples(1);
-
+        interactionController.PlayInteractionEffect(interactionClip);
         Destroy(gameObject);
     }
 }

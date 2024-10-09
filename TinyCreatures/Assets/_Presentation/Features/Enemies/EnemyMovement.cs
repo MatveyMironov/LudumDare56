@@ -8,11 +8,13 @@ namespace Enemy
     public class EnemyMovement
     {
         private NavMeshAgent _agent;
+        private Animator _animator;
         private MovementParameters _parameters;
 
-        public EnemyMovement(NavMeshAgent agent, MovementParameters parameters)
+        public EnemyMovement(NavMeshAgent agent, Animator animator, MovementParameters parameters)
         {
             _agent = agent;
+            _animator = animator;
             _parameters = parameters;
         }
 
@@ -43,17 +45,18 @@ namespace Enemy
             _agent.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
 
             _agent.SetDestination(position);
-            _agent.isStopped = false;
         }
 
         public void StopMoving()
         {
             _agent.isStopped = true;
+            _animator.SetBool("IsMoving", false);
         }
 
         public void StartMoving()
         {
             _agent.isStopped = false;
+            _animator.SetBool("IsMoving", true);
         }
 
         [Serializable]

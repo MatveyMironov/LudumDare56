@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Player;
 
 namespace Enemy
 {
@@ -12,7 +13,7 @@ namespace Enemy
             this.perceptionParameters = perceptionParameters;
         }
 
-        public Player PercievedPlayer { get; private set; }
+        public Player.Player PercievedPlayer { get; private set; }
 
         public void Use(Transform perciever)
         {
@@ -21,7 +22,7 @@ namespace Enemy
 
         private void TryDetectPlayer(Vector2 percieverPosition)
         {
-            if (TryDetectInRadius(percieverPosition, out Player player))
+            if (TryDetectInRadius(percieverPosition, out Player.Player player))
             {
                 if (CheckObstruction(player, percieverPosition))
                 {
@@ -33,12 +34,12 @@ namespace Enemy
             PercievedPlayer = null;
         }
 
-        private bool TryDetectInRadius(Vector2 percieverPosition, out Player foundPlayer)
+        private bool TryDetectInRadius(Vector2 percieverPosition, out Player.Player foundPlayer)
         {
             Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(percieverPosition, perceptionParameters.PerceptionRadius, perceptionParameters.PercievedLayers);
             foreach (Collider2D detectedObject in detectedObjects)
             {
-                if (detectedObject.TryGetComponent(out Player player))
+                if (detectedObject.TryGetComponent(out Player.Player player))
                 {
                     foundPlayer = player;
                     return true;
@@ -49,7 +50,7 @@ namespace Enemy
             return false;
         }
 
-        private bool CheckObstruction(Player player, Vector2 percieverPosition)
+        private bool CheckObstruction(Player.Player player, Vector2 percieverPosition)
         {
             Vector2 playerPosition = player.transform.position;
             Vector2 directionToPlayer = playerPosition - percieverPosition;

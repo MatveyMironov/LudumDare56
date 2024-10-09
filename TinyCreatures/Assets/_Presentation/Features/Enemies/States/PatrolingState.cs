@@ -19,6 +19,7 @@ namespace Enemy
         public void OnEnter()
         {
             _movement.SetWalkingSpeed();
+            _movement.StartMoving();
         }
 
         public void OnExit()

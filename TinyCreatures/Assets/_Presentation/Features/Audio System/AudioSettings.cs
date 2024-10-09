@@ -14,7 +14,6 @@ namespace AudioSystem
         {
             SetVolume("MasterVolume", audioSettingsData.masterVolume, ref audioSettingsData.masterVolume);
             SetVolume("EffectsVolume", audioSettingsData.effectsVolume, ref audioSettingsData.effectsVolume);
-            SetVolume("VoiceVolume", audioSettingsData.voiceVolume, ref audioSettingsData.voiceVolume);
             SetVolume("MusicVolume", audioSettingsData.musicVolume, ref audioSettingsData.musicVolume);
         }
 

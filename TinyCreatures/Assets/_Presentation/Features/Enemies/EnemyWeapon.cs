@@ -23,15 +23,16 @@ namespace Enemy
             }
         }
 
-        public void Use(Transform user, Player player)
+        public void Use(Transform user, Player.Player player)
         {
             if (_isOnCooldown) { return; }
 
             if (Vector2.Distance(user.position, player.transform.position) <= _parameters.AttackDistance)
             {
-                if (player.TryGetComponent(out HealthController health))
+                if (player.TryGetComponent(out IHitable hitable))
                 {
-                    health.SubtractHealth(_parameters.AttackDamage);
+                    _parameters.AttackingSource.Play();
+                    hitable.Hit(_parameters.AttackDamage, user.position);
                     _isOnCooldown = true;
                 }
             }
@@ -53,6 +54,9 @@ namespace Enemy
             [field: SerializeField] public float AttackDistance { get; private set; }
             [field: SerializeField] public float AttackCooldown { get; private set; }
             [field: SerializeField] public int AttackDamage { get; private set; }
+
+            [field: Space]
+            [field: SerializeField] public AudioSource AttackingSource { get; private set; }
         }
     }
 }

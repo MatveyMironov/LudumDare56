@@ -9,11 +9,15 @@ namespace Enemy
         [Header("Health")]
         [SerializeField] private HealthController healthController;
 
+        [Header("Hit Effects")]
+        [SerializeField] private AudioSource gettingHitSource;
+
         [Header("Perception")]
         [SerializeField] private EnemyPerception.PerceptionParameters perceptionParameters;
 
         [Header("Movement")]
         [SerializeField] private NavMeshAgent agent;
+        [SerializeField] private Animator animator;
         [SerializeField] private EnemyMovement.MovementParameters movementParameters;
 
         [field: Header("Objectives")]
@@ -33,7 +37,7 @@ namespace Enemy
 
         private void Awake()
         {
-            Movement = new(agent, movementParameters);
+            Movement = new(agent, animator, movementParameters);
             Perception = new(perceptionParameters);
             Weapon = new(weaponParameters);
 
@@ -76,6 +80,7 @@ namespace Enemy
 
         public void Hit(int damage, Vector3 from)
         {
+            gettingHitSource.Play();
             healthController.SubtractHealth(damage);
             Objectives.PositionOfInterest = from;
         }

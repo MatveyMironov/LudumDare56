@@ -15,17 +15,9 @@ namespace Enemy
 
         public void OnEnter()
         {
-            _movement.MoveTo(_objectives.PositionOfInterest);
             _movement.SetRunningSpeed();
-
-            if (_movement.RemainingDistance <= 1)
-            {
-                _movement.StopMoving();
-            }
-            else
-            {
-                _movement.StartMoving();
-            }
+            _movement.MoveTo(_objectives.PositionOfInterest);
+            _movement.StartMoving();
         }
 
         public void OnExit()
@@ -35,7 +27,14 @@ namespace Enemy
 
         public void Tick()
         {
-            
+            if (_movement.RemainingDistance <= 1)
+            {
+                _movement.StopMoving();
+            }
+            else
+            {
+                _movement.StartMoving();
+            }
         }
 
         public bool HasReachedPosition()

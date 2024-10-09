@@ -9,7 +9,8 @@ public class Pistol : Weapon
 
     [Header("Effects")]
     [SerializeField] private AudioSource audioSource;
-    [SerializeField] private AudioClip shotClip;
+    [SerializeField] private AudioClip shotSound;
+    [SerializeField] private AudioClip emptyClickSound;
     [SerializeField] private TrailRenderer tracerEffect;
     [SerializeField] private Animator animator;
 
@@ -33,23 +34,26 @@ public class Pistol : Weapon
         IsReadyToFire = false;
     }
 
+    public override void ReleaseTheTrigger()
+    {
+        IsReadyToFire = true;
+    }
+
     private void Fire()
     {
         if (LoadedAmmo <= 0)
-        { return; }
+        {
+            audioSource.PlayOneShot(emptyClickSound);
+            return;
+        }
 
-        audioSource.PlayOneShot(shotClip);
+        audioSource.PlayOneShot(shotSound);
         animator.SetTrigger("Shoot");
         CreateRaycast();
         
         LoadedAmmo -= 1;
         _isRecharging = true;
         RaiseAmmoAmountEvent();
-    }
-
-    public override void ReleaseTheTrigger()
-    {
-        IsReadyToFire = true;
     }
 
     private void CreateRaycast()

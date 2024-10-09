@@ -5,13 +5,13 @@ public class MedPack : MonoBehaviour, IInteractable
     [SerializeField] private InteractionIndicator indicator;
     [Space]
     [SerializeField] private int healthPerUse;
-    [ContextMenuItem("Reset Uses", "ResetUses")]
-    [SerializeField] private int initialUses;
-    public int CurrentUses { get; private set; }
+
+    [Header("Interaction Effects")]
+    [SerializeField] private AudioClip interactionClip;
 
     private void Start()
     {
-        ResetUses();
+        indicator.SetInteractionInformation($"{healthPerUse}%");
         HideInteraction();
     }
 
@@ -27,22 +27,13 @@ public class MedPack : MonoBehaviour, IInteractable
 
     public void Interact(InteractionController interactionController)
     {
-        if (CurrentUses <= 0) { return; }
-
         HealthController healthController = interactionController.HealthController;
 
         if (healthController.CurrentHealth < healthController.MaxHealth)
         {
             healthController.AddHealth(healthPerUse);
-            CurrentUses -= 1;
+            interactionController.PlayInteractionEffect(interactionClip);
+            Destroy(gameObject);
         }
-
-        indicator.SetInteractionInformation($"{CurrentUses}/{initialUses} uses\r\n{healthPerUse} health\r\nper use");
-    }
-
-    private void ResetUses()
-    {
-        CurrentUses = initialUses;
-        indicator.SetInteractionInformation($"{CurrentUses}/{initialUses} uses\r\n{healthPerUse} health\r\nper use");
     }
 }

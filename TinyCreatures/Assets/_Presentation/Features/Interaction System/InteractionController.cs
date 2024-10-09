@@ -5,9 +5,13 @@ public class InteractionController : MonoBehaviour
 {
     [field: SerializeField] public Inventory Inventory { get; private set; }
     [field: SerializeField] public HealthController HealthController { get; private set; }
+
     [Space]
     [SerializeField] private float interactionRadius;
     [SerializeField] private LayerMask interactableLayers;
+
+    [Space]
+    [SerializeField] private AudioSource interactingSource;
 
     private IInteractable _currentInteractable;
 
@@ -56,5 +60,10 @@ public class InteractionController : MonoBehaviour
     public void SetInteractable(IInteractable interactable)
     {
         _currentInteractable = interactable;
+    }
+
+    public void PlayInteractionEffect(AudioClip interactionClip)
+    {
+        interactingSource.PlayOneShot(interactionClip);
     }
 }
