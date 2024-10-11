@@ -44,13 +44,13 @@ public class BoxOfPistolCartridges : MonoBehaviour, IInteractable
             inventory.AddPistolCartridges(availableSpace);
             interactionController.PlayInteractionEffect(interactionClip);
             CurrentStoredItems -= availableSpace;
-            indicator.SetInteractionInformation($"{CurrentStoredItems}");
+            indicator.SetInteractionInformation($"{CurrentStoredItems}\r\nRounds");
         }
     }
 
     private void ResetStoredItems()
     {
         CurrentStoredItems = initialStoredItems;
-        indicator.SetInteractionInformation($"{CurrentStoredItems}");
+        indicator.SetInteractionInformation($"{CurrentStoredItems}\r\nRounds");
     }
 }

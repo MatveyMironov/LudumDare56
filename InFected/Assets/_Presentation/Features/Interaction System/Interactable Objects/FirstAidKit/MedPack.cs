@@ -11,7 +11,7 @@ public class MedPack : MonoBehaviour, IInteractable
 
     private void Start()
     {
-        indicator.SetInteractionInformation($"{healthPerUse}%");
+        indicator.SetInteractionInformation($"{healthPerUse}%\r\nHealth");
         HideInteraction();
     }
 

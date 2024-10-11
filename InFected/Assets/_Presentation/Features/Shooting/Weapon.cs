@@ -3,7 +3,7 @@ using UnityEngine;
 
 public abstract class Weapon : MonoBehaviour
 {
-    [field: SerializeField] public int magazineCapacity { get; private set; }
+    [field: SerializeField] public int MagazineCapacity { get; private set; }
     public int LoadedAmmo { get; protected set; }
     public bool IsReadyToFire { get; protected set; }
 
@@ -17,9 +17,9 @@ public abstract class Weapon : MonoBehaviour
 
     public void Reload(int ammo)
     {
-        if (LoadedAmmo + ammo >= magazineCapacity)
+        if (LoadedAmmo + ammo >= MagazineCapacity)
         {
-            LoadedAmmo = magazineCapacity;
+            LoadedAmmo = MagazineCapacity;
         }
         else
         {

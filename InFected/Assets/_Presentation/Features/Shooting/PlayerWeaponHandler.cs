@@ -1,15 +1,21 @@
+using System;
 using UnityEngine;
 
 public class PlayerWeaponHandler : MonoBehaviour
 {
-    [field: SerializeField] public Weapon Weapon { get; private set; }
-    [field: SerializeField] public Inventory Inventory { get; private set; }
+    [SerializeField] private Weapon weapon;
+    [SerializeField] private Inventory inventory;
 
     [Space]
     [SerializeField] private float reloadingTime;
 
     [Header("Effects")]
     [SerializeField] private AudioSource reloadingSource;
+
+    public int LoadedAmmo { get { return weapon.LoadedAmmo; } }
+    public int MagazineCapacity { get { return weapon.MagazineCapacity; } }
+
+    public event Action OnAmmoAmountChanged;
 
     private bool _isReloading;
     private float _reloadingTimer;
@@ -27,17 +33,27 @@ public class PlayerWeaponHandler : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        weapon.OnAmmoAmountChanged += InvokeOnAmmoAmountChanged;
+    }
+
+    private void OnDisable()
+    {
+        weapon.OnAmmoAmountChanged -= InvokeOnAmmoAmountChanged;
+    }
+
     public void PullWeaponTrigger()
     {
         if (_isReloading) { return; }
 
-        Weapon.PullTheTrigger();
+        weapon.PullTheTrigger();
     }
 
     public void ReleaseWeaponTrigger()
     {
-        Weapon.ReleaseTheTrigger();
-        if (Weapon.LoadedAmmo <= 0)
+        weapon.ReleaseTheTrigger();
+        if (weapon.LoadedAmmo <= 0)
         {
             StartReloadingWeapon();
         }
@@ -46,8 +62,8 @@ public class PlayerWeaponHandler : MonoBehaviour
     public void StartReloadingWeapon()
     {
         if (_isReloading 
-            || Inventory.CurrentPistolCartridges <= 0 
-            || Weapon.magazineCapacity - Weapon.LoadedAmmo <= 0) 
+            || inventory.CurrentPistolCartridges <= 0 
+            || weapon.MagazineCapacity - weapon.LoadedAmmo <= 0) 
         { return; }
 
         reloadingSource.Play();
@@ -68,17 +84,22 @@ public class PlayerWeaponHandler : MonoBehaviour
 
     private void ReloadWeapon()
     {
-        int requiredAmmo = Weapon.magazineCapacity - Weapon.LoadedAmmo;
+        int requiredAmmo = weapon.MagazineCapacity - weapon.LoadedAmmo;
 
-        if (requiredAmmo <= Inventory.CurrentPistolCartridges)
+        if (requiredAmmo <= inventory.CurrentPistolCartridges)
         {
-            Weapon.Reload(requiredAmmo);
-            Inventory.RemovePistolCartridges(requiredAmmo);
+            weapon.Reload(requiredAmmo);
+            inventory.RemovePistolCartridges(requiredAmmo);
         }
         else
         {
-            Weapon.Reload(Inventory.CurrentPistolCartridges);
-            Inventory.RemovePistolCartridges(Inventory.CurrentPistolCartridges);
+            weapon.Reload(inventory.CurrentPistolCartridges);
+            inventory.RemovePistolCartridges(inventory.CurrentPistolCartridges);
         }
+    }
+
+    private void InvokeOnAmmoAmountChanged()
+    {
+        OnAmmoAmountChanged?.Invoke();
     }
 }

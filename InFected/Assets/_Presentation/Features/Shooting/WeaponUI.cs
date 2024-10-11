@@ -10,18 +10,18 @@ public class WeaponUI : MonoBehaviour
 
     private void DisplayAmmo()
     {
-        ammoText.text = $"{weaponHandler.Weapon.LoadedAmmo}/{inventory.CurrentPistolCartridges}";
+        ammoText.text = $"{weaponHandler.LoadedAmmo}/{weaponHandler.MagazineCapacity} {inventory.CurrentPistolCartridges}";
     }
 
     private void OnEnable()
     {
         inventory.OnPistolCartridgesAmountChanged += DisplayAmmo;
-        weaponHandler.Weapon.OnAmmoAmountChanged += DisplayAmmo;
+        weaponHandler.OnAmmoAmountChanged += DisplayAmmo;
     }
 
     private void OnDisable()
     {
         inventory.OnPistolCartridgesAmountChanged -= DisplayAmmo;
-        weaponHandler.Weapon.OnAmmoAmountChanged -= DisplayAmmo;
+        weaponHandler.OnAmmoAmountChanged -= DisplayAmmo;
     }
 }

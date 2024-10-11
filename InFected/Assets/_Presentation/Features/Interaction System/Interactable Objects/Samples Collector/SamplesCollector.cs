@@ -6,12 +6,13 @@ public class SamplesCollector : MonoBehaviour, IInteractable
     [SerializeField] private InteractionIndicator indicator;
     [SerializeField] private int requiredSamples;
 
-    public int StoredSamples { get; private set; }
+    public int RequiredSamples { get { return requiredSamples; } }
 
     public event Action OnAllSamplesCollected;
 
     private void Start()
     {
+        indicator.SetInteractionInformation($"Collect {requiredSamples}\r\nBacteria\r\nSamples");
         HideInteraction();
     }
 
@@ -28,12 +29,10 @@ public class SamplesCollector : MonoBehaviour, IInteractable
     public void Interact(InteractionController interactionController)
     {
         int availableSamples = interactionController.Inventory.CollectedSamples;
-        interactionController.Inventory.RemoveSamples(availableSamples);
-        StoredSamples += availableSamples;
-        indicator.SetInteractionInformation($"{StoredSamples}/{requiredSamples}\r\nSamples\r\nCollected");
 
-        if (StoredSamples >= requiredSamples)
+        if (availableSamples >= requiredSamples)
         {
+            interactionController.Inventory.RemoveSamples(availableSamples);
             OnAllSamplesCollected?.Invoke();
         }
     }
