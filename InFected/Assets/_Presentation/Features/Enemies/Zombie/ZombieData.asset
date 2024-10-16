@@ -21,7 +21,7 @@ MonoBehaviour:
       m_Bits: 8
     <PerceptionRadius>k__BackingField: 7
   <MovementParameters>k__BackingField:
-    <WalkingSpeed>k__BackingField: 2
+    <WalkingSpeed>k__BackingField: 1
     <RunningSpeed>k__BackingField: 5
     <Acceleration>k__BackingField: 10
     <TurningSpeed>k__BackingField: 180
