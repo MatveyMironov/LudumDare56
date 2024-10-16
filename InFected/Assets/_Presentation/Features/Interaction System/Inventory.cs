@@ -49,6 +49,7 @@ public class Inventory : MonoBehaviour
         OnPistolCartridgesAmountChanged?.Invoke();
     }
 
+    [ContextMenu("Reset Pistol Cartridges")]
     private void ResetCurrentPistolCartridges()
     {
         CurrentPistolCartridges = DefaultPistolCartridges;

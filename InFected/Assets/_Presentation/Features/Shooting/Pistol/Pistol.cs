@@ -2,16 +2,23 @@ using UnityEngine;
 
 public class Pistol : Weapon
 {
+    [Header("Bullet")]
+    [SerializeField] private Bullet2D bulletPrefab;
+
+    [Header("Weapon")]
+    [SerializeField] private float bulletSpeed;
     [SerializeField] private LayerMask hitableLayers;
-    [SerializeField] private int Damage;
-    [SerializeField] private float Cooldown;
+    [SerializeField] private int bulletDamage;
+    [SerializeField] private float effectiveDistance;
+    [SerializeField] private float cooldown;
+
+    [Header("References")]
     [SerializeField] private Transform muzzle;
 
     [Header("Effects")]
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip shotSound;
     [SerializeField] private AudioClip emptyClickSound;
-    [SerializeField] private TrailRenderer tracerEffect;
     [SerializeField] private Animator animator;
 
     private bool _isRecharging;
@@ -30,8 +37,15 @@ public class Pistol : Weapon
         if (!IsReadyToFire || _isRecharging)
         { return; }
 
-        Fire();
-        IsReadyToFire = false;
+        if (LoadedAmmo <= 0)
+        {
+            audioSource.PlayOneShot(emptyClickSound);
+        }
+        else
+        {
+            FireBullet();
+            IsReadyToFire = false;
+        }
     }
 
     public override void ReleaseTheTrigger()
@@ -39,45 +53,29 @@ public class Pistol : Weapon
         IsReadyToFire = true;
     }
 
-    private void Fire()
+    private void FireBullet()
     {
-        if (LoadedAmmo <= 0)
-        {
-            audioSource.PlayOneShot(emptyClickSound);
-            return;
-        }
+        LoadedAmmo -= 1;
 
         audioSource.PlayOneShot(shotSound);
         animator.SetTrigger("Shoot");
-        CreateRaycast();
+        SpawnBullet();
         
-        LoadedAmmo -= 1;
         _isRecharging = true;
         RaiseAmmoAmountEvent();
     }
 
-    private void CreateRaycast()
+    private void SpawnBullet()
     {
-        RaycastHit2D hit = Physics2D.Raycast(muzzle.position, muzzle.up, 100, hitableLayers);
-        if (hit.collider.TryGetComponent(out IHitable hitable))
-        {
-            hitable.Hit(Damage, muzzle.position);
-        }
-        DrawTracer(hit.point);
-    }
-
-    private void DrawTracer(Vector3 impactPoint)
-    {
-        var tracer = Object.Instantiate(tracerEffect, muzzle.position, muzzle.rotation);
-        tracer.AddPosition(muzzle.position);
-
-        tracer.transform.position = impactPoint;
+        Bullet2D bullet = Instantiate(bulletPrefab, muzzle.position, muzzle.rotation);
+        float bulletDeathTime = effectiveDistance / bulletSpeed;
+        bullet.SetupBullet(bulletSpeed, hitableLayers, bulletDeathTime, bulletDamage, muzzle.position);
     }
 
     private void Recharge()
     {
         _rechargingTimer += Time.deltaTime;
-        if (_rechargingTimer >= Cooldown)
+        if (_rechargingTimer >= cooldown)
         {
             _isRecharging = false;
             _rechargingTimer = 0;

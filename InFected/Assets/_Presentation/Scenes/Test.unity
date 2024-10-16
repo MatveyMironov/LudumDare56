@@ -15065,17 +15065,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fbf24393c41162848a22901455530b6e, type: 3}
---- !u!114 &1840374983 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 895271937105287845, guid: 9eccf11e4fe43a649be378cb87f025aa, type: 3}
-  m_PrefabInstance: {fileID: 6280132342051577253}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe67c185516d8694ab5decb4e2e4bf3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1843615604
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19563,81 +19552,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 17072511725114633, guid: 9eccf11e4fe43a649be378cb87f025aa, type: 3}
-      propertyPath: <DefaultPistolCartridges>k__BackingField
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 895271937105287845, guid: 9eccf11e4fe43a649be378cb87f025aa, type: 3}
-      propertyPath: cooldown
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 895271937105287845, guid: 9eccf11e4fe43a649be378cb87f025aa, type: 3}
-      propertyPath: bulletSpeed
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 895271937105287845, guid: 9eccf11e4fe43a649be378cb87f025aa, type: 3}
-      propertyPath: bulletDamage
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 895271937105287845, guid: 9eccf11e4fe43a649be378cb87f025aa, type: 3}
-      propertyPath: bulletPrefab
-      value: 
-      objectReference: {fileID: 6852816463865441652, guid: 20cc106b0b6811a4b963f3cdc8470e85, type: 3}
-    - target: {fileID: 895271937105287845, guid: 9eccf11e4fe43a649be378cb87f025aa, type: 3}
-      propertyPath: effectiveDistance
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 895271937105287845, guid: 9eccf11e4fe43a649be378cb87f025aa, type: 3}
-      propertyPath: <MagazineCapacity>k__BackingField
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 2011565168228947829, guid: 9eccf11e4fe43a649be378cb87f025aa, type: 3}
-      propertyPath: weapon
-      value: 
-      objectReference: {fileID: 1840374983}
-    - target: {fileID: 2011565168228947829, guid: 9eccf11e4fe43a649be378cb87f025aa, type: 3}
-      propertyPath: inventory
-      value: 
-      objectReference: {fileID: 1662993260}
-    - target: {fileID: 2701512612241258118, guid: 9eccf11e4fe43a649be378cb87f025aa, type: 3}
-      propertyPath: m_Volume
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 4266797308736310073, guid: 9eccf11e4fe43a649be378cb87f025aa, type: 3}
-      propertyPath: defaultHealth
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 4266797308736310073, guid: 9eccf11e4fe43a649be378cb87f025aa, type: 3}
-      propertyPath: <MaxHealth>k__BackingField
-      value: 100
-      objectReference: {fileID: 0}
     - target: {fileID: 6568628746932331549, guid: 9eccf11e4fe43a649be378cb87f025aa, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 7044083123938609876, guid: 9eccf11e4fe43a649be378cb87f025aa, type: 3}
-      propertyPath: Loop
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7044083123938609876, guid: 9eccf11e4fe43a649be378cb87f025aa, type: 3}
-      propertyPath: m_audioClip
-      value: 
-      objectReference: {fileID: 8300000, guid: f50a503e27fe1e845a8e90a144b7fe26, type: 3}
-    - target: {fileID: 7044083123938609876, guid: 9eccf11e4fe43a649be378cb87f025aa, type: 3}
-      propertyPath: m_PlayOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7428751485416605743, guid: 9eccf11e4fe43a649be378cb87f025aa, type: 3}
-      propertyPath: m_Radius
-      value: 0.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 7428751485416605743, guid: 9eccf11e4fe43a649be378cb87f025aa, type: 3}
-      propertyPath: m_Offset.y
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8207784554734796403, guid: 9eccf11e4fe43a649be378cb87f025aa, type: 3}
-      propertyPath: maxWalkingSpeed
-      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8720695642265000139, guid: 9eccf11e4fe43a649be378cb87f025aa, type: 3}
       propertyPath: m_LocalPosition.x
