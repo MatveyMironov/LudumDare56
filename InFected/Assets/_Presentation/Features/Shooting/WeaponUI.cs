@@ -1,3 +1,4 @@
+using InventorySystem;
 using TMPro;
 using UnityEngine;
 
@@ -8,20 +9,28 @@ public class WeaponUI : MonoBehaviour
     [Space]
     [SerializeField] private TextMeshProUGUI ammoText;
 
-    private void DisplayAmmo()
-    {
-        ammoText.text = $"{weaponHandler.LoadedAmmo}/{weaponHandler.MagazineCapacity} {inventory.CurrentPistolCartridges}";
-    }
-
     private void OnEnable()
     {
-        inventory.OnPistolCartridgesAmountChanged += DisplayAmmo;
-        weaponHandler.OnAmmoAmountChanged += DisplayAmmo;
+        weaponHandler.OnMagazineLoadChanged += DisplayAmmo;
+        inventory.OnItemCountChanged += DisplayCurrentAmmunition;
     }
 
     private void OnDisable()
     {
-        inventory.OnPistolCartridgesAmountChanged -= DisplayAmmo;
-        weaponHandler.OnAmmoAmountChanged -= DisplayAmmo;
+        weaponHandler.OnMagazineLoadChanged -= DisplayAmmo;
+        inventory.OnItemCountChanged -= DisplayCurrentAmmunition;
+    }
+
+    private void DisplayAmmo()
+    {
+        ammoText.text = $"{weaponHandler.LoadedAmmo}/{inventory.GetItemCount(weaponHandler.CurrentWeaponAmmunition)}";
+    }
+
+    private void DisplayCurrentAmmunition(ItemDataSO item)
+    {
+        if (item == weaponHandler.CurrentWeaponAmmunition)
+        {
+            DisplayAmmo();
+        }
     }
 }

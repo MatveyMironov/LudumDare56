@@ -1,3 +1,4 @@
+using InventorySystem;
 using TMPro;
 using UnityEngine;
 
@@ -9,18 +10,26 @@ public class SamplesCollectorUI : MonoBehaviour
     [Header("UI Elements")]
     [SerializeField] private TextMeshProUGUI itemsCounter;
 
-    public void UpdateCounter()
-    {
-        itemsCounter.text = $"{playerInventory.CollectedSamples}/{samplesCollector.RequiredSamples}";
-    }
-
     private void OnEnable()
     {
-        playerInventory.OnCollectedSamplesChanged += UpdateCounter;
+        playerInventory.OnItemCountChanged += DisplayRequiredItem;
     }
 
     private void OnDisable()
     {
-        playerInventory.OnCollectedSamplesChanged -= UpdateCounter;
+        playerInventory.OnItemCountChanged -= DisplayRequiredItem;
+    }
+
+    private void DisplayRequiredItem(ItemDataSO itemDataSO)
+    {
+        if (itemDataSO == samplesCollector.RequiredItem)
+        {
+            DisplaySamples();
+        }
+    }
+
+    private void DisplaySamples()
+    {
+        itemsCounter.text = $"{playerInventory.GetItemCount(samplesCollector.RequiredItem)}/{samplesCollector.RequiredCount}";
     }
 }

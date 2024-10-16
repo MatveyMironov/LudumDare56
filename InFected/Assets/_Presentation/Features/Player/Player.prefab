@@ -701,8 +701,8 @@ GameObject:
   - component: {fileID: 895271937105287845}
   - component: {fileID: 4409137440706699322}
   - component: {fileID: 8388389697624704123}
-  - component: {fileID: 17072511725114633}
   - component: {fileID: 919626079327661379}
+  - component: {fileID: 4715133583099907950}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -870,9 +870,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon: {fileID: 919626079327661379}
-  inventory: {fileID: 17072511725114633}
+  inventory: {fileID: 4715133583099907950}
   reloadingTime: 1
-  reloadingSource: {fileID: 8390834560376739361}
+  weaponSource: {fileID: 5352178059534939858}
+  reloadingClip: {fileID: 8300000, guid: 300109aa828d4d44e850c5d9866b38df, type: 3}
 --- !u!114 &895271937105287845
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -885,6 +886,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe67c185516d8694ab5decb4e2e4bf3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <AmmunitionType>k__BackingField: {fileID: 11400000, guid: ab13b0374fadcd14bb1c63df1b56119d, type: 2}
   <MagazineCapacity>k__BackingField: 7
   bulletPrefab: {fileID: 6852816463865441652, guid: 20cc106b0b6811a4b963f3cdc8470e85, type: 3}
   bulletSpeed: 50
@@ -928,27 +930,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67dc5b3d94b825f4b92b0d945545f552, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Inventory>k__BackingField: {fileID: 17072511725114633}
+  <Inventory>k__BackingField: {fileID: 4715133583099907950}
   <HealthController>k__BackingField: {fileID: 4266797308736310073}
   interactionRadius: 2
   interactableLayers:
     serializedVersion: 2
     m_Bits: 128
   interactingSource: {fileID: 7000462007318793448}
---- !u!114 &17072511725114633
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6568628746932331549}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5468ac20322266b4ba1ed55a97c80894, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <MaxPistolCartridges>k__BackingField: 180
-  <DefaultPistolCartridges>k__BackingField: 180
 --- !u!114 &919626079327661379
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -961,6 +949,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 702ad15e70f80f542b06e5990faf1b21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <AmmunitionType>k__BackingField: {fileID: 11400000, guid: a98d772d8dcc60148a40577ad95f58b2, type: 2}
   <MagazineCapacity>k__BackingField: 30
   bulletPrefab: {fileID: 6852816463865441652, guid: 20cc106b0b6811a4b963f3cdc8470e85, type: 3}
   bulletSpeed: 50
@@ -975,6 +964,18 @@ MonoBehaviour:
   shotSound: {fileID: 8300000, guid: a67711e331229fe4fa338b6ca0362429, type: 3}
   emptyClickSound: {fileID: 8300000, guid: b925e301ebe2ce140a25d49ffa6f49f9, type: 3}
   animator: {fileID: 6846828520235940018}
+--- !u!114 &4715133583099907950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6568628746932331549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a2545278ded1af4fa7607e838f42659, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7264924532540243317
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,25 +6,25 @@ public abstract class Projectile2D : MonoBehaviour
     private LayerMask _hitableLayers;
     private float _deathTime;
 
-    private bool _isSetup;
+    private bool _isProjectileSetup;
 
     private Vector3 _previousPosition;
     private float _lifeTime;
 
     protected void SetupProjectile(float speed, LayerMask hitableLayers, float deathTime)
     {
-        if (_isSetup) { return; }
+        if (_isProjectileSetup) { return; }
 
         _speed = speed;
         _hitableLayers = hitableLayers;
         _deathTime = deathTime;
 
-        _isSetup = true;
+        _isProjectileSetup = true;
     }
 
     private void FixedUpdate()
     {
-        if (!_isSetup)
+        if (!_isProjectileSetup)
             return;
 
         _previousPosition = transform.position;
