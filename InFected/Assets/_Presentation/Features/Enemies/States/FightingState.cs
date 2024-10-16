@@ -6,13 +6,15 @@ namespace Enemy
     {
         private EnemyPerception _perception;
         private EnemyMovement _movement;
+        private EnemyCommunication _communication;
         private EnemyWeapon _weapon;
         private EnemyController.EnemyObjectives _objectives;
 
-        public FightingState(EnemyPerception perception, EnemyMovement movement, EnemyWeapon weapon, EnemyController.EnemyObjectives objectives)
+        public FightingState(EnemyPerception perception, EnemyMovement movement, EnemyCommunication communication, EnemyWeapon weapon, EnemyController.EnemyObjectives objectives)
         {
             _perception = perception;
             _movement = movement;
+            _communication = communication;
             _weapon = weapon;
             _objectives = objectives;
         }
@@ -31,6 +33,7 @@ namespace Enemy
         public void Tick()
         {
             _objectives.PositionOfInterest = _perception.PercievedPlayer.transform.position;
+            _communication.CommunicatePosition(_objectives.PositionOfInterest);
             _movement.MoveTo(_perception.PercievedPlayer.transform.position);
 
             float requiredDistance = _perception.PercievedPlayer.Collider.radius + _weapon.AttackDistance - 0.1f;

@@ -6,17 +6,20 @@ namespace Enemy
     {
         private EnemyController.EnemyObjectives _objectives;
         private EnemyMovement _movement;
+        private EnemyCommunication _communication;
 
-        public InvestigatingState(EnemyController.EnemyObjectives objectives, EnemyMovement movement)
+        public InvestigatingState(EnemyController.EnemyObjectives objectives, EnemyMovement movement, EnemyCommunication communication)
         {
             _objectives = objectives;
             _movement = movement;
+            _communication = communication;
         }
 
         public void OnEnter()
         {
             Debug.Log("Investigating");
             _movement.SetRunningSpeed();
+            _communication.CommunicatePosition(_objectives.PositionOfInterest);
             _movement.MoveTo(_objectives.PositionOfInterest);
             _movement.StartMoving();
         }

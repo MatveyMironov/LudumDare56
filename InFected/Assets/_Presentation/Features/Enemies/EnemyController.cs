@@ -6,6 +6,8 @@ namespace Enemy
 {
     public class EnemyController : MonoBehaviour, IHitable
     {
+        [SerializeField] private EnemyDataSO enemyData;
+
         [Header("Health")]
         [SerializeField] private HealthController healthController;
 
@@ -14,23 +16,24 @@ namespace Enemy
 
         [Header("Perception")]
         [SerializeField] private EnemyPerception.PerceptionReferences perceptionReferences;
-        [SerializeField] private EnemyPerception.PerceptionParameters perceptionParameters;
 
         [Header("Movement")]
         [SerializeField] private NavMeshAgent agent;
         [SerializeField] private Animator animator;
-        [SerializeField] private EnemyMovement.MovementParameters movementParameters;
+
+        [Header("Communication")]
+        [SerializeField] private EnemyCommunication.CommunicationReferences communicationReferences;
+
+        [Header("Combat")]
+        [SerializeField] private EnemyWeapon.WeaponReferences weaponReferences;
 
         [Header("Objectives")]
         [SerializeField] private EnemyObjectives objectives;
 
-        [Header("Combat")]
-        [SerializeField] private EnemyWeapon.WeaponReferences weaponReferences;
-        [SerializeField] private EnemyWeapon.WeaponParameters weaponParameters;
-
-        private EnemyMovement _movement;
-        private EnemyWeapon _weapon;
         private EnemyPerception _perception;
+        private EnemyMovement _movement;
+        private EnemyCommunication _communication;
+        private EnemyWeapon _weapon;
 
         public bool IsActive;
 
@@ -38,14 +41,15 @@ namespace Enemy
 
         private void Awake()
         {
-            _movement = new(agent, animator, movementParameters);
-            _perception = new(perceptionReferences, perceptionParameters);
-            _weapon = new(weaponReferences, weaponParameters);
+            _perception = new(perceptionReferences, enemyData.PerceptionParameters);
+            _movement = new(agent, animator, enemyData.MovementParameters);
+            _communication = new(communicationReferences, enemyData.CommunicationParameters);
+            _weapon = new(weaponReferences, enemyData.WeaponParameters);
 
             _stateMachine = new StateMachine();
 
             InactiveState inactiveState = new();
-            ActiveState activeState = new(_movement, _perception, _weapon, objectives);
+            ActiveState activeState = new(_movement, _perception, _communication, _weapon, objectives);
 
             _stateMachine.AddTransition(inactiveState, activeState, () => IsActive);
             _stateMachine.AddTransition(activeState, inactiveState, () => !IsActive);

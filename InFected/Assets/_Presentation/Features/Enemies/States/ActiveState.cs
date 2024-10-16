@@ -8,7 +8,7 @@ namespace Enemy
 
         private StateMachine _stateMachine;
 
-        public ActiveState(EnemyMovement movement, EnemyPerception perception, EnemyWeapon weapon, EnemyController.EnemyObjectives objectives)
+        public ActiveState(EnemyMovement movement, EnemyPerception perception, EnemyCommunication communication, EnemyWeapon weapon, EnemyController.EnemyObjectives objectives)
         {
             _perception = perception;
 
@@ -16,8 +16,8 @@ namespace Enemy
 
             StandingState standing = new(movement);
             PatrolingState patroling = new(objectives, movement);
-            InvestigatingState investigating = new(objectives, movement);
-            FightingState fighting = new(perception, movement, weapon, objectives);
+            InvestigatingState investigating = new(objectives, movement, communication);
+            FightingState fighting = new(perception, movement, communication, weapon, objectives);
 
             _stateMachine.AddTransition(standing, patroling, () => objectives.IsPatroling);
             _stateMachine.AddTransition(patroling, standing, () => !objectives.IsPatroling);

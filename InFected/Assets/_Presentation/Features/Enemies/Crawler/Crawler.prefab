@@ -288,38 +288,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d52a5c2e1c7fd57469c90aaa05122565, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyData: {fileID: 11400000, guid: ec8e21be2b6f5ba4bbd689007c0c36e8, type: 2}
   healthController: {fileID: 6678205036404585799}
   gettingHitSource: {fileID: 3083285444987292844}
   perceptionReferences:
     <Perciever>k__BackingField: {fileID: 6468656337048742976}
-  perceptionParameters:
-    <PercievedLayers>k__BackingField:
-      serializedVersion: 2
-      m_Bits: 64
-    <ObstructionLayers>k__BackingField:
-      serializedVersion: 2
-      m_Bits: 8
-    <PerceptionRadius>k__BackingField: 7
   agent: {fileID: 3716164790461143727}
   animator: {fileID: 3591541975767630284}
-  movementParameters:
-    <WalkingSpeed>k__BackingField: 2
-    <RunningSpeed>k__BackingField: 12
-    <Acceleration>k__BackingField: 12
-    <TurningSpeed>k__BackingField: 90
-  objectives:
-    <Waypoins>k__BackingField: []
-    <IsPatroling>k__BackingField: 0
+  communicationReferences:
+    <Communicator>k__BackingField: {fileID: 6468656337048742976}
   weaponReferences:
     <WeaponOrigin>k__BackingField: {fileID: 2203030684523570346}
     <AttackingSource>k__BackingField: {fileID: 6673346078363582391}
-  weaponParameters:
-    <AttackRadius>k__BackingField: 1
-    <AttackCooldown>k__BackingField: 2
-    <AttackDamage>k__BackingField: 40
-    <HitableLayers>k__BackingField:
-      serializedVersion: 2
-      m_Bits: 64
+  objectives:
+    <Waypoins>k__BackingField: []
+    <IsPatroling>k__BackingField: 0
   IsActive: 1
 --- !u!1 &2359424158178626433
 GameObject:
