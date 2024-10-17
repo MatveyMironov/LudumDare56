@@ -16,7 +16,7 @@ namespace Input
         [SerializeField] private PlayerWeaponHandler playerWeaponHandler;
         [SerializeField] private InteractionController interactionController;
         [SerializeField] private PauseManager pauseManager;
-        [SerializeField] private InventoryDisplayer inventoryUI;
+        [SerializeField] private InventoryMenu inventoryMenu;
 
         public bool InputDisabled { get; set; }
 
@@ -88,7 +88,16 @@ namespace Input
 
         public void ToggleInventoryMenu()
         {
+            if (InputDisabled) { return; }
 
+            if (inventoryMenu.IsOpened)
+            {
+                inventoryMenu.CloseMenu();
+            }
+            else
+            {
+                inventoryMenu.OpenMenu();
+            }
         }
 
         private bool CheckIfPointerOverUI()

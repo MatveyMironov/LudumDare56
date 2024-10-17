@@ -32,6 +32,8 @@ namespace Input
 
             _playerControls.MainActionMap.Interact.performed += OnInteractInput;
 
+            _playerControls.MainActionMap.OpenInventory.performed += OnInventoryInput;
+
             _playerControls.MainActionMap.PauseAndUnpause.performed += OnPauseInput;
         }
 
@@ -72,6 +74,11 @@ namespace Input
         private void OnInteractInput(InputAction.CallbackContext context)
         {
             inputManager.InvokeInteraction();
+        }
+
+        private void OnInventoryInput(InputAction.CallbackContext context)
+        {
+            inputManager.ToggleInventoryMenu();
         }
 
         private void OnPauseInput(InputAction.CallbackContext context)
