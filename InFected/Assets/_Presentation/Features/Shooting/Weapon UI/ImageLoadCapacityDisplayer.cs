@@ -1,23 +1,27 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace UI
 {
     public class ImageLoadCapacityDisplayer : LoadCapacityDisplayer
     {
-        [SerializeField] private ItemFadeableImage fadeableImagePrefab;
+        [SerializeField] private Image imagePrefab;
         [SerializeField] private Transform content;
 
-        private List<ItemFadeableImage> fadeableImages = new();
+        [SerializeField] private Color filledColor;
+        [SerializeField] private Color emptyColor;
 
+        private List<Image> _images = new();
         public override void DisplayCapacity(int capacity)
         {
             HideCapacity();
 
             for (int i = 0; i < capacity; i++)
             {
-                ItemFadeableImage fadeableImage = Instantiate(fadeableImagePrefab, content);
-                fadeableImages.Add(fadeableImage);
+                Image image = Instantiate(imagePrefab, content);
+                image.color = emptyColor;
+                _images.Add(image);
             }
 
             HideLoad();
@@ -25,11 +29,18 @@ namespace UI
 
         public override void HideCapacity()
         {
-            for (int i = fadeableImages.Count - 1; i >= 0; i--)
+            /*
+            for (int i = _images.Count - 1; i >= 0; i--)
             {
-                Destroy(fadeableImages[i]);
-                fadeableImages.RemoveAt(i);
+                Destroy(_images[i].gameObject);
+            }*/
+
+            foreach (Image image in _images)
+            {
+                Destroy(image.gameObject);
             }
+
+            _images.Clear();
         }
 
         public override void DisplayLoad(int load)
@@ -38,15 +49,15 @@ namespace UI
 
             for (int i = 0; i < load; i++)
             {
-                fadeableImages[i].FadeIn();
+                _images[i].color = filledColor;
             }
         }
 
         public override void HideLoad()
         {
-            foreach (var fadeableImage in fadeableImages)
+            foreach (var image in _images)
             {
-                fadeableImage.FadeOut();
+                image.color = emptyColor;
             }
         }
     }
