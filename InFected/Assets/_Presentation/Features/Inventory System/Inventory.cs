@@ -8,6 +8,7 @@ namespace InventorySystem
     {
         [SerializeField] Dictionary<ItemDataSO, int> items = new();
 
+        public Action<ItemDataSO> OnItemAdded;
         public Action<ItemDataSO> OnItemCountChanged;
 
         public void AddItem(ItemDataSO item, int count = 1)
@@ -24,6 +25,7 @@ namespace InventorySystem
             else
             {
                 items.Add(item, count);
+                OnItemAdded(item);
             }
 
             OnItemCountChanged?.Invoke(item);

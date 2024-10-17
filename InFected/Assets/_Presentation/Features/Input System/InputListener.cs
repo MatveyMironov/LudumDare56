@@ -32,7 +32,7 @@ namespace Input
 
             _playerControls.MainActionMap.Interact.performed += OnInteractInput;
 
-            _playerControls.MainActionMap.Pause.performed += OnPauseInput;
+            _playerControls.MainActionMap.PauseAndUnpause.performed += OnPauseInput;
         }
 
         private void OnMoveInput(InputAction.CallbackContext context)

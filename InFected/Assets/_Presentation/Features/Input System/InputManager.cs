@@ -2,6 +2,7 @@ using Pause;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Player;
+using InventorySystem;
 
 namespace Input
 {
@@ -15,6 +16,7 @@ namespace Input
         [SerializeField] private PlayerWeaponHandler playerWeaponHandler;
         [SerializeField] private InteractionController interactionController;
         [SerializeField] private PauseManager pauseManager;
+        [SerializeField] private InventoryDisplayer inventoryUI;
 
         public bool InputDisabled { get; set; }
 
@@ -82,6 +84,11 @@ namespace Input
             {
                 pauseManager.PauseGame();
             }
+        }
+
+        public void ToggleInventoryMenu()
+        {
+
         }
 
         private bool CheckIfPointerOverUI()

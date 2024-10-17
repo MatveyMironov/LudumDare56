@@ -91,9 +91,18 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Pause"",
+                    ""name"": ""PauseAndUnpause"",
                     ""type"": ""Button"",
                     ""id"": ""84237624-6fc1-4515-92f2-5f1948229c49"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OpenInventory"",
+                    ""type"": ""Button"",
+                    ""id"": ""41beccf3-e11d-4f80-8e28-55884e80a408"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -229,7 +238,18 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Pause"",
+                    ""action"": ""PauseAndUnpause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""32e2798a-b69e-4626-b4a4-8f7f7368ce13"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenInventory"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -247,7 +267,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_MainActionMap_Shoot = m_MainActionMap.FindAction("Shoot", throwIfNotFound: true);
         m_MainActionMap_Reload = m_MainActionMap.FindAction("Reload", throwIfNotFound: true);
         m_MainActionMap_Interact = m_MainActionMap.FindAction("Interact", throwIfNotFound: true);
-        m_MainActionMap_Pause = m_MainActionMap.FindAction("Pause", throwIfNotFound: true);
+        m_MainActionMap_PauseAndUnpause = m_MainActionMap.FindAction("PauseAndUnpause", throwIfNotFound: true);
+        m_MainActionMap_OpenInventory = m_MainActionMap.FindAction("OpenInventory", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -316,7 +337,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_MainActionMap_Shoot;
     private readonly InputAction m_MainActionMap_Reload;
     private readonly InputAction m_MainActionMap_Interact;
-    private readonly InputAction m_MainActionMap_Pause;
+    private readonly InputAction m_MainActionMap_PauseAndUnpause;
+    private readonly InputAction m_MainActionMap_OpenInventory;
     public struct MainActionMapActions
     {
         private @PlayerControls m_Wrapper;
@@ -328,7 +350,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Shoot => m_Wrapper.m_MainActionMap_Shoot;
         public InputAction @Reload => m_Wrapper.m_MainActionMap_Reload;
         public InputAction @Interact => m_Wrapper.m_MainActionMap_Interact;
-        public InputAction @Pause => m_Wrapper.m_MainActionMap_Pause;
+        public InputAction @PauseAndUnpause => m_Wrapper.m_MainActionMap_PauseAndUnpause;
+        public InputAction @OpenInventory => m_Wrapper.m_MainActionMap_OpenInventory;
         public InputActionMap Get() { return m_Wrapper.m_MainActionMap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -359,9 +382,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
-            @Pause.started += instance.OnPause;
-            @Pause.performed += instance.OnPause;
-            @Pause.canceled += instance.OnPause;
+            @PauseAndUnpause.started += instance.OnPauseAndUnpause;
+            @PauseAndUnpause.performed += instance.OnPauseAndUnpause;
+            @PauseAndUnpause.canceled += instance.OnPauseAndUnpause;
+            @OpenInventory.started += instance.OnOpenInventory;
+            @OpenInventory.performed += instance.OnOpenInventory;
+            @OpenInventory.canceled += instance.OnOpenInventory;
         }
 
         private void UnregisterCallbacks(IMainActionMapActions instance)
@@ -387,9 +413,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
-            @Pause.started -= instance.OnPause;
-            @Pause.performed -= instance.OnPause;
-            @Pause.canceled -= instance.OnPause;
+            @PauseAndUnpause.started -= instance.OnPauseAndUnpause;
+            @PauseAndUnpause.performed -= instance.OnPauseAndUnpause;
+            @PauseAndUnpause.canceled -= instance.OnPauseAndUnpause;
+            @OpenInventory.started -= instance.OnOpenInventory;
+            @OpenInventory.performed -= instance.OnOpenInventory;
+            @OpenInventory.canceled -= instance.OnOpenInventory;
         }
 
         public void RemoveCallbacks(IMainActionMapActions instance)
@@ -416,6 +445,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnShoot(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
-        void OnPause(InputAction.CallbackContext context);
+        void OnPauseAndUnpause(InputAction.CallbackContext context);
+        void OnOpenInventory(InputAction.CallbackContext context);
     }
 }
