@@ -14,6 +14,7 @@ public class SingleItemContainer : MonoBehaviour, IInteractable
 
     private void Start()
     {
+        DisplayItem();
         HideInteraction();
     }
 
@@ -31,7 +32,19 @@ public class SingleItemContainer : MonoBehaviour, IInteractable
     {
         Inventory inventory = interactionController.Inventory;
         inventory.AddItem(item, storedAmount);
-        indicator.SetInteractionInformation($"{item.Name}\r\n{storedAmount}");
+        DisplayItem();
         Destroy(gameObject);
+    }
+
+    private void DisplayItem()
+    {
+        if (storedAmount == 1)
+        {
+            indicator.SetInteractionInformation($"{item.Name}");
+        }
+        else
+        {
+            indicator.SetInteractionInformation($"{item.Name}\r\n{storedAmount}");
+        }
     }
 }

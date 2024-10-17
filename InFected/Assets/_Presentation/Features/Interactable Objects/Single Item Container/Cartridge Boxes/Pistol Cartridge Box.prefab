@@ -264,9 +264,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7086534726809244423, guid: 39f6f234b57bbd543b7fa44a11df6abd, type: 3}
       propertyPath: m_text
-      value: '0
+      value: 'Pistol
 
-        Rounds'
+        Rounds
+
+        0'
       objectReference: {fileID: 0}
     - target: {fileID: 7630831051538302167, guid: 39f6f234b57bbd543b7fa44a11df6abd, type: 3}
       propertyPath: m_Name
@@ -277,8 +279,12 @@ PrefabInstance:
       value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 8154580903275557294, guid: 39f6f234b57bbd543b7fa44a11df6abd, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 8154580903275557294, guid: 39f6f234b57bbd543b7fa44a11df6abd, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -80
+      value: -90
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

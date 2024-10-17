@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ebcca0ae34fa5e459e52f0b80282bd1, type: 3}
   m_Name: AssaultRifleCartridge
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Assault Rifle Cartridge
+  <Name>k__BackingField: AR Round
   <Description>k__BackingField: 
   <Icon>k__BackingField: {fileID: 0}
   <Weight>k__BackingField: 0
