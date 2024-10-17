@@ -17,7 +17,7 @@ public class SamplesCollector : MonoBehaviour, IInteractable
 
     private void Start()
     {
-        indicator.SetInteractionInformation($"Collect {requiredCount}\r\nBacteria\r\nSamples");
+        indicator.SetInteractionInformation($"Collect {requiredCount}\r\nMicrobe\r\nSamples");
         HideInteraction();
     }
 
