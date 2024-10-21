@@ -17,56 +17,41 @@ namespace UI
 
         private void Awake()
         {
-            inventoryAmmoText.text = "";
             weaponNameText.text = "";
+            inventoryAmmoText.text = "";
         }
 
         private void OnEnable()
         {
-            weaponHandler.OnWeaponChanged += DisplayWeaponName;
-            weaponHandler.OnWeaponChanged += DisplayMagazineCapacity;
-            weaponHandler.OnWeaponChanged += DisplayMagazineLoad;
-            weaponHandler.OnWeaponChanged += DisplayInventoryAmmunition;
+            weaponHandler.OnWeaponChanged += DisplayWeapon;
             weaponHandler.OnMagazineLoadChanged += DisplayMagazineLoad;
-            inventory.OnItemCountChanged += DisplayItemCount;
+            inventory.OnItemCountChanged += DisplayInventoryAmmunition;
         }
 
         private void OnDisable()
         {
-            weaponHandler.OnWeaponChanged -= DisplayWeaponName;
-            weaponHandler.OnWeaponChanged -= DisplayMagazineCapacity;
-            weaponHandler.OnWeaponChanged -= DisplayMagazineLoad;
-            weaponHandler.OnWeaponChanged -= DisplayInventoryAmmunition;
+            weaponHandler.OnWeaponChanged -= DisplayWeapon;
             weaponHandler.OnMagazineLoadChanged -= DisplayMagazineLoad;
-            inventory.OnItemCountChanged -= DisplayItemCount;
+            inventory.OnItemCountChanged -= DisplayInventoryAmmunition;
         }
 
-        private void DisplayWeaponName()
-        {
-            
-        }
-
-        private void DisplayMagazineCapacity()
+        private void DisplayWeapon()
         {
             magazineDisplayer.DisplayCapacity(weaponHandler.MagazineCapacity);
+            DisplayInventoryAmmunition(weaponHandler.CurrentWeaponAmmunition);
+            DisplayMagazineLoad();
         }
 
         private void DisplayMagazineLoad()
         {
             magazineDisplayer.DisplayLoad(weaponHandler.LoadedAmmo);
-            inventoryAmmoText.text = $"{inventory.GetItemCount(weaponHandler.CurrentWeaponAmmunition)}";
         }
 
-        private void DisplayInventoryAmmunition()
-        {
-            DisplayItemCount(weaponHandler.CurrentWeaponAmmunition);
-        }
-
-        private void DisplayItemCount(ItemDataSO item)
+        private void DisplayInventoryAmmunition(ItemDataSO item)
         {
             if (item == weaponHandler.CurrentWeaponAmmunition)
             {
-                DisplayMagazineLoad();
+                inventoryAmmoText.text = $"{inventory.GetItemCount(weaponHandler.CurrentWeaponAmmunition)}";
             }
         }
     }
