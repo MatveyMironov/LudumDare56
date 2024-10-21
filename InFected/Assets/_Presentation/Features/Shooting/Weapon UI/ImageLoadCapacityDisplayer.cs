@@ -13,6 +13,7 @@ namespace UI
         [SerializeField] private Color emptyColor;
 
         private List<Image> _images = new();
+
         public override void DisplayCapacity(int capacity)
         {
             HideCapacity();
@@ -29,12 +30,6 @@ namespace UI
 
         public override void HideCapacity()
         {
-            /*
-            for (int i = _images.Count - 1; i >= 0; i--)
-            {
-                Destroy(_images[i].gameObject);
-            }*/
-
             foreach (Image image in _images)
             {
                 Destroy(image.gameObject);

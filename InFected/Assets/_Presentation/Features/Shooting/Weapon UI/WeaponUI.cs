@@ -13,35 +13,60 @@ namespace UI
         [Header("UI Elements")]
         [SerializeField] private LoadCapacityDisplayer magazineDisplayer;
         [SerializeField] private TextMeshProUGUI inventoryAmmoText;
+        [SerializeField] private TextMeshProUGUI weaponNameText;
 
-        private void Start()
+        private void Awake()
         {
-            magazineDisplayer.DisplayCapacity(weaponHandler.MagazineCapacity);
+            inventoryAmmoText.text = "";
+            weaponNameText.text = "";
         }
 
         private void OnEnable()
         {
-            weaponHandler.OnMagazineLoadChanged += DisplayAmmo;
-            inventory.OnItemCountChanged += DisplayCurrentAmmunition;
+            weaponHandler.OnWeaponChanged += DisplayWeaponName;
+            weaponHandler.OnWeaponChanged += DisplayMagazineCapacity;
+            weaponHandler.OnWeaponChanged += DisplayMagazineLoad;
+            weaponHandler.OnWeaponChanged += DisplayInventoryAmmunition;
+            weaponHandler.OnMagazineLoadChanged += DisplayMagazineLoad;
+            inventory.OnItemCountChanged += DisplayItemCount;
         }
 
         private void OnDisable()
         {
-            weaponHandler.OnMagazineLoadChanged -= DisplayAmmo;
-            inventory.OnItemCountChanged -= DisplayCurrentAmmunition;
+            weaponHandler.OnWeaponChanged -= DisplayWeaponName;
+            weaponHandler.OnWeaponChanged -= DisplayMagazineCapacity;
+            weaponHandler.OnWeaponChanged -= DisplayMagazineLoad;
+            weaponHandler.OnWeaponChanged -= DisplayInventoryAmmunition;
+            weaponHandler.OnMagazineLoadChanged -= DisplayMagazineLoad;
+            inventory.OnItemCountChanged -= DisplayItemCount;
         }
 
-        private void DisplayAmmo()
+        private void DisplayWeaponName()
+        {
+            
+        }
+
+        private void DisplayMagazineCapacity()
+        {
+            magazineDisplayer.DisplayCapacity(weaponHandler.MagazineCapacity);
+        }
+
+        private void DisplayMagazineLoad()
         {
             magazineDisplayer.DisplayLoad(weaponHandler.LoadedAmmo);
             inventoryAmmoText.text = $"{inventory.GetItemCount(weaponHandler.CurrentWeaponAmmunition)}";
         }
 
-        private void DisplayCurrentAmmunition(ItemDataSO item)
+        private void DisplayInventoryAmmunition()
+        {
+            DisplayItemCount(weaponHandler.CurrentWeaponAmmunition);
+        }
+
+        private void DisplayItemCount(ItemDataSO item)
         {
             if (item == weaponHandler.CurrentWeaponAmmunition)
             {
-                DisplayAmmo();
+                DisplayMagazineLoad();
             }
         }
     }

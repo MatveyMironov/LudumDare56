@@ -2,6 +2,7 @@ using Pause;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Player;
+using WeaponSystem;
 
 namespace Input
 {
@@ -12,6 +13,7 @@ namespace Input
         [Space]
         [SerializeField] private PlayerMovement playerMovement;
         [SerializeField] private PlayerAim playerLook;
+        [SerializeField] private WeaponEquiper weaponEquiper;
         [SerializeField] private PlayerWeaponHandler playerWeaponHandler;
         [SerializeField] private InteractionController interactionController;
         [SerializeField] private PauseManager pauseManager;
@@ -44,8 +46,6 @@ namespace Input
         {
             if (InputDisabled) { return; }
 
-            if (CheckIfPointerOverUI()) { return; }
-
             if (isTriggerPulled)
             {
                 playerWeaponHandler.PullWeaponTrigger();
@@ -70,6 +70,18 @@ namespace Input
             interactionController.Interact();
         }
 
+        public void InvokeScroll(float scroll)
+        {
+            if (scroll < 0)
+            {
+                weaponEquiper.StartEquipingPreviousWeapon();
+            }
+            else if (scroll > 0)
+            {
+                weaponEquiper.StartEquipingNextWeapon();
+            }
+        }
+
         public void TogglePause()
         {
             if (InputDisabled) { return; }
@@ -82,11 +94,6 @@ namespace Input
             {
                 pauseManager.PauseGame();
             }
-        }
-
-        private bool CheckIfPointerOverUI()
-        {
-            return eventSystem.IsPointerOverGameObject();
         }
     }
 }

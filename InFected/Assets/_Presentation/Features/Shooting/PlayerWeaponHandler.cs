@@ -1,32 +1,33 @@
 using InventorySystem;
 using System;
+using System.Collections;
 using UnityEngine;
+using WeaponSystem;
 
 public class PlayerWeaponHandler : MonoBehaviour
 {
-    [SerializeField] private Weapon weapon;
     [SerializeField] private Inventory inventory;
 
     [Space]
-    [SerializeField] private float reloadingTime;
+    [SerializeField] private float reloadingSpeed;
 
     [Header("Effects")]
     [SerializeField] private AudioSource weaponSource;
     [SerializeField] private AudioClip reloadingClip;
 
-    public ItemDataSO CurrentWeaponAmmunition { get { return weapon.AmmunitionType; } }
-    public int LoadedAmmo { get { return weapon.LoadedAmmo; } }
-    public int MagazineCapacity { get { return weapon.MagazineCapacity; } }
+    private Weapon _weapon;
 
+    public ItemDataSO CurrentWeaponAmmunition { get { return (_weapon != null) ? _weapon.WeaponData.AmmunitionType : null; } }
+    public int LoadedAmmo { get { return _weapon.LoadedAmmo; } }
+    public int MagazineCapacity { get { return _weapon.WeaponData.WeaponParameters.MagazineCapacity; } }
+
+    public bool ReadyToUseWeapon { get; set; }
+
+    public event Action OnWeaponChanged;
     public event Action OnMagazineLoadChanged;
 
     private bool _isReloading;
     private float _reloadingTimer;
-
-    private void Start()
-    {
-        ReloadWeapon();
-    }
 
     private void Update()
     {
@@ -36,27 +37,37 @@ public class PlayerWeaponHandler : MonoBehaviour
         }
     }
 
-    private void OnEnable()
+    public void SetWeapon(Weapon weapon)
     {
-        weapon.OnMagazineLoadChanged += InvokeOnMagazineLoadChanged;
+        _weapon = weapon;
+        OnWeaponChanged?.Invoke();
+        _weapon.OnMagazineLoadChanged += InvokeOnMagazineLoadChanged;
     }
 
     private void OnDisable()
     {
-        weapon.OnMagazineLoadChanged -= InvokeOnMagazineLoadChanged;
+        if (_weapon != null)
+        {
+            _weapon.OnMagazineLoadChanged -= InvokeOnMagazineLoadChanged;
+        }
     }
 
     public void PullWeaponTrigger()
     {
+        if (_weapon == null) { return; }
+
         if (_isReloading) { return; }
 
-        weapon.PullTheTrigger();
+        _weapon.PullTheTrigger();
     }
 
     public void ReleaseWeaponTrigger()
     {
-        weapon.ReleaseTheTrigger();
-        if (weapon.LoadedAmmo <= 0)
+        if (_weapon == null) { return; }
+
+        _weapon.ReleaseTheTrigger();
+
+        if (_weapon.LoadedAmmo <= 0)
         {
             StartReloadingWeapon();
         }
@@ -64,9 +75,11 @@ public class PlayerWeaponHandler : MonoBehaviour
 
     public void StartReloadingWeapon()
     {
-        if (_isReloading 
-            || inventory.GetItemCount(weapon.AmmunitionType) <= 0 
-            || weapon.MagazineCapacity - weapon.LoadedAmmo <= 0) 
+        if (_weapon == null) { return; }
+
+        if (_isReloading
+            || inventory.GetItemCount(_weapon.WeaponData.AmmunitionType) <= 0
+            || _weapon.WeaponData.WeaponParameters.MagazineCapacity - _weapon.LoadedAmmo <= 0)
         { return; }
 
         weaponSource.PlayOneShot(reloadingClip);
@@ -76,7 +89,7 @@ public class PlayerWeaponHandler : MonoBehaviour
     private void CountReloadingTimer()
     {
         _reloadingTimer += Time.deltaTime;
-        if (_reloadingTimer >= reloadingTime)
+        if (_reloadingTimer >= reloadingSpeed)
         {
             ReloadWeapon();
             weaponSource.Stop();
@@ -87,18 +100,18 @@ public class PlayerWeaponHandler : MonoBehaviour
 
     private void ReloadWeapon()
     {
-        int requiredAmmunitionAmount = weapon.MagazineCapacity - weapon.LoadedAmmo;
-        int availableAmmunitionAmount = inventory.GetItemCount(weapon.AmmunitionType);
+        int requiredAmmunitionAmount = _weapon.WeaponData.WeaponParameters.MagazineCapacity - _weapon.LoadedAmmo;
+        int availableAmmunitionAmount = inventory.GetItemCount(_weapon.WeaponData.AmmunitionType);
 
         if (requiredAmmunitionAmount <= availableAmmunitionAmount)
         {
-            inventory.RemoveItem(weapon.AmmunitionType, requiredAmmunitionAmount);
-            weapon.Reload(requiredAmmunitionAmount);
+            inventory.RemoveItem(_weapon.WeaponData.AmmunitionType, requiredAmmunitionAmount);
+            _weapon.Reload(requiredAmmunitionAmount);
         }
         else
         {
-            weapon.Reload(availableAmmunitionAmount);
-            inventory.RemoveItem(weapon.AmmunitionType, availableAmmunitionAmount);
+            _weapon.Reload(availableAmmunitionAmount);
+            inventory.RemoveItem(_weapon.WeaponData.AmmunitionType, availableAmmunitionAmount);
         }
     }
 

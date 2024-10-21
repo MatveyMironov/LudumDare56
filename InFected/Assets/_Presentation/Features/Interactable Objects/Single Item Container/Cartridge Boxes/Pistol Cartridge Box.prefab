@@ -84,7 +84,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   indicator: {fileID: 4020566603318114549}
   item: {fileID: 11400000, guid: ab13b0374fadcd14bb1c63df1b56119d, type: 2}
-  storedAmount: 0
+  storedAmount: 10
   interactionClip: {fileID: 8300000, guid: 2482aa1d79653a647a99a6e014140698, type: 3}
 --- !u!1 &7667087358246303897
 GameObject:

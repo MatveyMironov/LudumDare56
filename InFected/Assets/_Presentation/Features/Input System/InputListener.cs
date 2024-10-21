@@ -32,6 +32,8 @@ namespace Input
 
             _playerControls.MainActionMap.Interact.performed += OnInteractInput;
 
+            _playerControls.MainActionMap.Scroll.performed += OnScrollInput;
+
             _playerControls.MainActionMap.Pause.performed += OnPauseInput;
         }
 
@@ -72,6 +74,12 @@ namespace Input
         private void OnInteractInput(InputAction.CallbackContext context)
         {
             inputManager.InvokeInteraction();
+        }
+
+        private void OnScrollInput(InputAction.CallbackContext context)
+        {
+            float scrollInput = context.ReadValue<float>();
+            inputManager.InvokeScroll(scrollInput);
         }
 
         private void OnPauseInput(InputAction.CallbackContext context)

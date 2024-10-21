@@ -51,6 +51,11 @@ namespace InventorySystem
 
         public int GetItemCount(ItemDataSO item)
         {
+            if (item == null)
+            {
+                throw new ArgumentNullException("item");
+            }
+
             if (items.ContainsKey(item))
             {
                 return items[item];

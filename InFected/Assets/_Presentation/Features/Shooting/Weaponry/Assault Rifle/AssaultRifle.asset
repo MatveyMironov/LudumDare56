@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 701f68c34e26de84b84204f6de575513, type: 3}
+  m_Name: AssaultRifle
+  m_EditorClassIdentifier: 
+  <Name>k__BackingField: 
+  <WeaponPrefab>k__BackingField: {fileID: 6473659149276495710, guid: 2995d07e7a3f6b04381fd66cd516e90b, type: 3}
+  <WeaponParameters>k__BackingField:
+    <MagazineCapacity>k__BackingField: 30
+  <AmmunitionType>k__BackingField: {fileID: 11400000, guid: a98d772d8dcc60148a40577ad95f58b2, type: 2}
+  <BaseReloadingTime>k__BackingField: 1

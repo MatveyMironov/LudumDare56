@@ -98,6 +98,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Scroll"",
+                    ""type"": ""Value"",
+                    ""id"": ""1c5c4c4c-2c8a-4b46-a783-e9f37076962d"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -232,6 +241,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""868b525c-3a5f-4e41-acd0-e6b29de2475f"",
+                    ""path"": ""<Mouse>/scroll/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Scroll"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -248,6 +268,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_MainActionMap_Reload = m_MainActionMap.FindAction("Reload", throwIfNotFound: true);
         m_MainActionMap_Interact = m_MainActionMap.FindAction("Interact", throwIfNotFound: true);
         m_MainActionMap_Pause = m_MainActionMap.FindAction("Pause", throwIfNotFound: true);
+        m_MainActionMap_Scroll = m_MainActionMap.FindAction("Scroll", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -317,6 +338,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_MainActionMap_Reload;
     private readonly InputAction m_MainActionMap_Interact;
     private readonly InputAction m_MainActionMap_Pause;
+    private readonly InputAction m_MainActionMap_Scroll;
     public struct MainActionMapActions
     {
         private @PlayerControls m_Wrapper;
@@ -329,6 +351,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Reload => m_Wrapper.m_MainActionMap_Reload;
         public InputAction @Interact => m_Wrapper.m_MainActionMap_Interact;
         public InputAction @Pause => m_Wrapper.m_MainActionMap_Pause;
+        public InputAction @Scroll => m_Wrapper.m_MainActionMap_Scroll;
         public InputActionMap Get() { return m_Wrapper.m_MainActionMap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -362,6 +385,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Pause.started += instance.OnPause;
             @Pause.performed += instance.OnPause;
             @Pause.canceled += instance.OnPause;
+            @Scroll.started += instance.OnScroll;
+            @Scroll.performed += instance.OnScroll;
+            @Scroll.canceled += instance.OnScroll;
         }
 
         private void UnregisterCallbacks(IMainActionMapActions instance)
@@ -390,6 +416,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Pause.started -= instance.OnPause;
             @Pause.performed -= instance.OnPause;
             @Pause.canceled -= instance.OnPause;
+            @Scroll.started -= instance.OnScroll;
+            @Scroll.performed -= instance.OnScroll;
+            @Scroll.canceled -= instance.OnScroll;
         }
 
         public void RemoveCallbacks(IMainActionMapActions instance)
@@ -417,5 +446,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnReload(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
+        void OnScroll(InputAction.CallbackContext context);
     }
 }
