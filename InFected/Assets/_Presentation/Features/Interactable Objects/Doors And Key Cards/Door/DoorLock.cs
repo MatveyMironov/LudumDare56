@@ -11,15 +11,24 @@ namespace Door
         [SerializeField] private InteractionIndicator indicator;
 
         [Space]
-        [SerializeField] private ItemDataSO requiredKeyCard;
+        [SerializeField] private KeyCardDataSO requiredKeyCard;
+        [SerializeField] private SpriteRenderer colorIndicator;
 
         private void Start()
         {
+            ResetColor();
+
             if (requiredKeyCard != null)
             {
                 indicator.SetInteractionInformation($"You need\r\n{requiredKeyCard.Name}\r\nto pass");
             }
             indicator.HideIndicator();
+        }
+
+        [ContextMenu("Reset Color")]
+        private void ResetColor()
+        {
+            colorIndicator.color = requiredKeyCard.Color;
         }
 
         public void ShowInteraction()
