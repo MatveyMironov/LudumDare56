@@ -52,7 +52,7 @@ MonoBehaviour:
   hitableLayers:
     serializedVersion: 2
     m_Bits: 72
-  bulletDamage: 20
+  bulletDamage: 15
   effectiveDistance: 50
   cooldown: 0.2
   muzzle: {fileID: 2564094040876369027}
