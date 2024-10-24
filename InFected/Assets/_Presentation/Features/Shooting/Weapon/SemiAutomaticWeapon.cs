@@ -69,7 +69,10 @@ namespace WeaponSystem
 
         private void SpawnBullet()
         {
-            Bullet2D bullet = Instantiate(bulletPrefab, muzzle.position, muzzle.rotation);
+            float angleDeviation = Random.Range(-WeaponData.WeaponParameters.ShootingSpread, WeaponData.WeaponParameters.ShootingSpread);
+            Quaternion relativeBulletRotation = Quaternion.Euler(0, 0, angleDeviation);
+
+            Bullet2D bullet = Instantiate(bulletPrefab, muzzle.position, muzzle.rotation * relativeBulletRotation);
             float bulletDeathTime = effectiveDistance / bulletSpeed;
             bullet.SetupBullet(bulletSpeed, hitableLayers, bulletDeathTime, bulletDamage, muzzle.position);
         }

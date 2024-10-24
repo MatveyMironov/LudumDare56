@@ -41,6 +41,8 @@ namespace WeaponSystem
         public class WeaponParameters
         {
             [field: SerializeField] public int MagazineCapacity { get; private set; }
+            [field: Tooltip("In degrees")]
+            [field: SerializeField, Range(0, 90)] public float ShootingSpread { get; private set; }
         }
     }
 }

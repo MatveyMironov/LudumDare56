@@ -16,5 +16,6 @@ MonoBehaviour:
   <WeaponPrefab>k__BackingField: {fileID: 2628864896867595525, guid: 34e641348544bb941935e564d3d5a7ca, type: 3}
   <WeaponParameters>k__BackingField:
     <MagazineCapacity>k__BackingField: 15
+    <ShootingSpread>k__BackingField: 1
   <AmmunitionType>k__BackingField: {fileID: 11400000, guid: ab13b0374fadcd14bb1c63df1b56119d, type: 2}
   <BaseReloadingTime>k__BackingField: 1
